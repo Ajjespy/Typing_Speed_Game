@@ -6,15 +6,15 @@ This program is a game to both test and grow students typing and spelling abilit
 
 # Development Environment
 
-IDE - Visual Studio Code
-Language - Python
-Developement Environment - Github with Git
-Database - {SQL Relational Database, Cloud Database, or within a file}
+* IDE - Visual Studio Code
+* Language - Python
+* Developement Environment - Github with Git
+* Database - {SQL Relational Database, Cloud Database, or within a file}
 
 # Collaborators
 
-Austin Jesperson
-{Put your names here, this will be good practice for pushing code to Github}
+*Austin Jesperson
+*{Put your names here, this will be good practice for pushing code to Github}
 
 # Useful Websites
 
