@@ -16,6 +16,7 @@ This program is a game to both test and grow students typing and spelling abilit
 * Austin Jesperson
 * Ethan Tolson
 * Samantha Staheli
+* Sebastian Bustamante
 
 # Useful Websites
 
