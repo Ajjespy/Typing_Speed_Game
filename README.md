@@ -14,6 +14,7 @@ This program is a game to both test and grow students typing and spelling abilit
 # Collaborators
 
 * Austin Jesperson
+* Ethan Tolson
 * {Put your names here, this will be good practice for pushing code to Github}
 
 # Useful Websites
