@@ -13,10 +13,13 @@ This program is a game to both test and grow students typing and spelling abilit
 
 # Collaborators
 
-- Austin Jesperson
-- Ethan Tolson
-- Samantha Staheli
-- Andrew LaPointe
+
+* Austin Jesperson
+* Ethan Tolson
+* Kelly Payne
+* Samantha Staheli
+* Sebastian Bustamante
+* Andrew LaPointe
 
 # Useful Websites
 
