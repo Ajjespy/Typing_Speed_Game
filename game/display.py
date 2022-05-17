@@ -1,4 +1,3 @@
-from re import T
 import arcade
 from game.controller import controller
 from game.constants import RESOURCE_PATH
