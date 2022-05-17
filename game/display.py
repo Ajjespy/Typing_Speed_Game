@@ -2,9 +2,6 @@ import arcade
 from game.controller import controller
 from game.constants import RESOURCE_PATH
 
-screen_width = 1982
-screen_height = 1080
-
 class Display(arcade.View):
     def __init__(self):
         super().__init__()
