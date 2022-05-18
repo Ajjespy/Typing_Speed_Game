@@ -3,6 +3,7 @@ This program clean profanity and other terms from a csv file.
 It is not perfect as it can only remove what is in the given profanity list.
 If you find that it has missed a word or term, please let Andrew know.
 Currently it only cleans the data in index[1].
+https://www.kaggle.com/datasets/ruchi798/part-of-speech-tagging - original data
 """
 
 profanity = open('openProfanityList.csv', 'r')
