@@ -4,7 +4,7 @@ from game.constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
 from game.display import Display
 
 def main():
-    window = Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable = True, fullscreen = True)
+    window = Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable = False, fullscreen = True)
     set_background_color(ARSENIC)
     game_view = Display()
     game_view.setup()
