@@ -56,4 +56,4 @@ class Display(arcade.View):
         super().on_update(delta_time)
 
     def on_key_press(self, symbol: int, modifiers: int):
-        controller.get_key_press(self,symbol)
+        controller.get_key_press(self, symbol)
