@@ -57,3 +57,6 @@ class Display(arcade.View):
 
     def on_key_press(self, symbol: int, modifiers: int):
         controller.get_key_press(self, symbol)
+
+    def on_key_release(self, symbol: int, modifiers: int):
+        controller.get_key_press(self, symbol, True)
