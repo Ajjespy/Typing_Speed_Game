@@ -130,3 +130,4 @@ dmypy.json
 game/resources/openProfanityList.csv
 game/resources/words_with_pos_dirty.csv
 game/resources/words_with_pos_original.csv
+.vscode/settings.json
