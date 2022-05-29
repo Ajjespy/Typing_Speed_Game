@@ -8,7 +8,7 @@ This currently unfinished, but will return a word as a string.
 # Get characters by keyboard row.
 
 import random, linecache
-from constants import RESOURCE_PATH
+from game.constants import RESOURCE_PATH
 
 FILE_NAME = RESOURCE_PATH + "clean_word_list.csv"
 
@@ -21,7 +21,7 @@ class RandomWord:
     def manage_difficulty(self):
         pass
 
-    def get_random_chars(self, number = 1, rows = None, upper_case = False):
+    def get_random_chars(length = 1, rows = None, upper_case = False):
         """
         Gets a list of random characters.
         
@@ -44,9 +44,9 @@ class RandomWord:
                     "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"]
         }
 
-        letters = []
-        for i in range(number):
-            letters.append(letters_by_row["ALL"][random.randint(0, len(letters_by_row["ALL"]) - 1)])
+        letters = ""
+        for i in range(length):
+            letters = letters + letters_by_row["ALL"][random.randint(0, len(letters_by_row["ALL"]) - 1)]
 
         return letters
 
