@@ -52,7 +52,7 @@ class Training(arcade.View):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.keyboard_sprites.draw()
-        arcade.draw_text(self.randomWord, self.window.width/4, self.window.height*3/4, arcade.color.RED, 44, 400, "left", font_name="Western Bang Bang")
+        arcade.draw_text(self.randomWord, self.window.width/4, self.window.height*3/4, arcade.color.RED, 44, 400, "left", font_name="Ultra")
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
