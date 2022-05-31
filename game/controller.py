@@ -1,6 +1,6 @@
 import arcade
 from game.constants import RESOURCE_PATH, convertLetters
-from game.game import game
+#from game.game import game
 from game.training import Training
 #from game.scores import scores
 
@@ -38,6 +38,6 @@ class controller:
         director - Window
         view - int {1 : Training(), 2 : game(), 3: scores()}
         """
-        viewDict = {1 : Training(), 2 : game()}
+        viewDict = {1 : Training()}
         gameView = viewDict[view]
         director.window.show_view(gameView)
