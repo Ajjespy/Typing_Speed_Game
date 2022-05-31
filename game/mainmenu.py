@@ -1,3 +1,4 @@
+from tkinter import VERTICAL
 import arcade
 import arcade.gui
 import game.constants
@@ -12,7 +13,7 @@ class MainMenu(arcade.View):
     def setup(self):
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
-        self.vBox = arcade.gui.UIBoxLayout()
+        self.vBox = arcade.gui.UIBoxLayout(vertical=False)
 
         self.background = arcade.load_texture(f"{game.constants.RESOURCE_PATH}TitleScreen.png")
 
@@ -49,17 +50,24 @@ class MainMenu(arcade.View):
             print("quit Button pressed", event)
 
 
-        self.vBox.add(instructionButton.with_space_around(bottom=20))
-        self.vBox.add(learnButton.with_space_around(bottom=20))
-        self.vBox.add(gameButton.with_space_around(bottom=20))
-        self.vBox.add(scoresButton.with_space_around(bottom=20))
-        self.vBox.add(quitButton.with_space_around(bottom=20))
+        self.vBox.add(instructionButton.with_space_around(right=80))
+        self.vBox.add(learnButton.with_space_around(right=80))
+        self.vBox.add(gameButton.with_space_around(right=80))
+        self.vBox.add(scoresButton.with_space_around(right=80))
+        self.vBox.add(quitButton)
 
         self.manager.add(
             arcade.gui.UIAnchorWidget(
-                anchor_x="center_x",
-                anchor_y="center_y",
+                anchor_x="center",
+                anchor_y="bottom",
                 child=self.vBox
+            )
+        )
+
+        self.manager.add(
+            arcade.gui.UIPadding(
+                child=self.vBox,
+                bg_color=(0,0,0,75)
             )
         )
 
