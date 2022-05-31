@@ -21,14 +21,19 @@ class RandomWord:
     def manage_difficulty(self):
         pass
 
-    def get_random_chars(length = 1, rows = None, upper_case = False):
+    def get_random_chars(length = 1, lower_case = False, row = "ALL"):
         """
         Gets a list of random characters.
         
         Parameters:
             number - the number of characters that will be returned -> INTEGER
-            rows - not yet implemented
+            
             upper_case - return will be upper case if true -> BOOLEAN
+            
+            row - Specifies which row the letters will be drawn from
+                    must be "TOP", "MIDDLE", "TOP_MIDDLE", or "BOTTOM" 
+                    Default is "ALL"                                    -> STRING
+
 
         Returns: returns list of characters -> LIST of STRINGS
         """
@@ -38,6 +43,8 @@ class RandomWord:
 
             "MIDDLE": ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
 
+            "TOP_MIDDLE": ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L"],
+
             "BOTTOM": ["Z", "X", "C", "V", "B", "N", "M"],
 
             "ALL": ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A",
@@ -46,12 +53,15 @@ class RandomWord:
 
         letters = ""
         for i in range(length):
-            letters = letters + letters_by_row["ALL"][random.randint(0, len(letters_by_row["ALL"]) - 1)]
+            letters = letters + letters_by_row["ALL"][random.randint(0, len(letters_by_row[row]) - 1)]
 
-        return letters
+        if lower_case:
+            return letters
+        else:
+            return letters.upper()
 
 
-    def get_word(self):
+    def get_word():
         """
         Gets a random line from the file.
         linecache reads the entire file to the cache, so if this hits performance too badly it can be reworked.
@@ -60,16 +70,9 @@ class RandomWord:
 
         Returns: random word -> STRING
         """
-        line = linecache.getline(self.file, random.randint(0, 369038 - 1)) # 369038 is the last line in the file
+        line = linecache.getline(FILE_NAME, random.randint(0, 369038 - 1)) # 369038 is the last line in the file
         parts = line.split(",")
         return parts[1]
 
     def set_word(self):
         pass
-
-
-# word = RandomWord()
-
-# print(word.get_random_chars())
-
-# print(word.get_word())
