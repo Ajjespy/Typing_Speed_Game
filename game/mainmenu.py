@@ -49,10 +49,10 @@ class MainMenu(arcade.View):
             print("quit Button pressed", event)
 
 
+        self.vBox.add(instructionButton.with_space_around(bottom=20))
         self.vBox.add(learnButton.with_space_around(bottom=20))
         self.vBox.add(gameButton.with_space_around(bottom=20))
         self.vBox.add(scoresButton.with_space_around(bottom=20))
-        self.vBox.add(instructionButton.with_space_around(bottom=20))
         self.vBox.add(quitButton.with_space_around(bottom=20))
 
         self.manager.add(
