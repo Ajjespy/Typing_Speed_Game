@@ -2,7 +2,7 @@ from tkinter import VERTICAL
 import arcade
 import arcade.gui
 import game.constants
-from game.controller import controller
+from game.mainmenucontroller import mainmenucontroller
 
 
 class MainMenu(arcade.View):
@@ -36,7 +36,9 @@ class MainMenu(arcade.View):
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
-            controller.on_change_view(self, 1)
+            mainmenucontroller.on_change_view(self, 1)
+            print("learn Button pressed", event)
+
 
         @gameButton.event("on_click")
         def on_click_texture_button(event):
