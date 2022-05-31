@@ -1,8 +1,11 @@
 import arcade
 from game.constants import RESOURCE_PATH, convertLetters
+from game.game import game
+from game.training import Training
+#from game.scores import scores
 
 class controller:
-    def get_key_press(director, symbol, unpress = False):
+    def get_key_press(director, symbol, unpress = False, modifier = None):
         
         if symbol == arcade.key.ESCAPE and not unpress:
             director.window.set_fullscreen(not director.window.fullscreen)
@@ -24,3 +27,17 @@ class controller:
 
         if (symbol == arcade.key.LSHIFT or symbol == arcade.key.RSHIFT) and unpress:
             director.keyboard_sprites[len(director.keyboard_sprites)-1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png")
+
+        if (symbol == arcade.key.DELETE):
+            director.window.close_window()
+
+    def on_change_view(director, view):
+        """
+        This method will change which window the user is looking at.
+        Args:
+        director - Window
+        view - int {1 : Training(), 2 : game(), 3: scores()}
+        """
+        viewDict = {1 : Training(), 2 : game()}
+        gameView = viewDict[view]
+        director.window.show_view(gameView)
