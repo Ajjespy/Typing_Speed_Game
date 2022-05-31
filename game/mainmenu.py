@@ -18,16 +18,21 @@ class MainMenu(arcade.View):
         self.background = arcade.load_texture(f"{game.constants.RESOURCE_PATH}TitleScreen.png")
 
         textureLearn = arcade.load_texture(f"{game.constants.RESOURCE_PATH}LearnButton.png")
+        textureLearnHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}LearnButtonHovered.png")
         textureGame = arcade.load_texture(f"{game.constants.RESOURCE_PATH}GameButton.png")
+        textureGameHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}GameButtonHovered.png")
         textureScores = arcade.load_texture(f"{game.constants.RESOURCE_PATH}ScoresButton.png")
+        textureScoresHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}ScoresButtonHovered.png")
         textureInstructions = arcade.load_texture(f"{game.constants.RESOURCE_PATH}InstructionsButton.png")
+        textureInstructionsHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}InstructionsButtonHovered.png")
         textureQuit = arcade.load_texture(f"{game.constants.RESOURCE_PATH}QuitButton.png")
+        textureQuitHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}QuitButtonHovered.png")
 
-        learnButton = arcade.gui.UITextureButton(texture=textureLearn, scale= 0.5)
-        gameButton = arcade.gui.UITextureButton(texture=textureGame, scale= 0.5)
-        scoresButton = arcade.gui.UITextureButton(texture=textureScores, scale= 0.5)
-        instructionButton = arcade.gui.UITextureButton(texture=textureInstructions, scale= 0.5)
-        quitButton = arcade.gui.UITextureButton(texture=textureQuit, scale= 0.5)
+        learnButton = arcade.gui.UITextureButton(texture=textureLearn,texture_hovered=textureLearnHovered, scale= 0.5)
+        gameButton = arcade.gui.UITextureButton(texture=textureGame,texture_hovered=textureGameHovered, scale= 0.5)
+        scoresButton = arcade.gui.UITextureButton(texture=textureScores,texture_hovered=textureScoresHovered, scale= 0.5)
+        instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
+        quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
