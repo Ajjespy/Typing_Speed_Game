@@ -64,4 +64,4 @@ class RandomWord:
     def set_word(self):
         pass
 
-print(RandomWord.get_random_chars(10, True))
+#print(RandomWord.get_random_chars(10, True))
