@@ -1,5 +1,5 @@
 import arcade
-from game.trainingcontroller import trainingcontroller
+import game.controller
 from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
 from game.random_word import RandomWord
 
@@ -60,14 +60,14 @@ class Training(arcade.View):
         super().on_update(delta_time)
 
     def on_key_press(self, symbol: int, modifiers: int):
-        trainingcontroller.get_key_press(self, symbol)
+        game.controller.Controller.get_key_press(self, symbol)
         if symbol > 96 and symbol < 123:
             if len(self.userType) > 12:
                 self.userType = ""
             self.userType = self.userType + chr(symbol)
 
     def on_key_release(self, symbol: int, modifiers: int):
-        trainingcontroller.get_key_press(self, symbol, True)
+        game.controller.Controller.get_key_press(self, symbol, True)
 
     def on_resize(self, width: int, height: int):
         if(width <= SCREEN_WIDTH):

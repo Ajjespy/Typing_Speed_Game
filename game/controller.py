@@ -1,9 +1,12 @@
 import arcade
 from game.constants import RESOURCE_PATH, convertLetters
 #from game.game import game
+#from game.training import Training
 #from game.scores import scores
+#from game.instructions import instructions
+import game.training
 
-class trainingcontroller:
+class Controller:
     def get_key_press(director, symbol, unpress = False, modifier = None):
         
         if symbol == arcade.key.ESCAPE and not unpress:
@@ -29,3 +32,19 @@ class trainingcontroller:
 
         if (symbol == arcade.key.DELETE):
             director.window.close_window()
+
+    def on_change_view(director, view):
+        """
+        This method will change which window the user is looking at.
+        Args:
+        director - Window
+        view - int {1 : Training(), 2 : game(), 3: scores(), 4: instructions(), 5: quit}
+        """
+        viewDict = {1 : game.training.Training()}
+        if view in viewDict:
+            if view != 5:
+                gameView = viewDict[view]
+                gameView.setup()
+                director.window.show_view(gameView)
+            else:
+                director.window.close_window()
