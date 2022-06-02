@@ -1,6 +1,9 @@
 """
 This class is used to get a random word as a string from "clean_word_list.csv"
 This currently unfinished, but will return a word as a string.
+
+Static Methods: get_random_chars() - Done, fully implemented
+                get_random_word() - Works, incomplete
 """
 # TODO
 # Implement a difficulty system.
@@ -22,7 +25,7 @@ class RandomWord:
 
     def get_random_chars(length = 1, lower_case = True, row = "ALL"):
         """
-        Gets a list of random characters.
+        STATIC - Gets a string of random characters from all or specific keyboard rows.
         
         Parameters:
             number - the number of characters that will be returned -> INTEGER
@@ -34,7 +37,7 @@ class RandomWord:
                     Default is "ALL"                                    -> STRING
 
 
-        Returns: returns list of characters -> LIST of STRINGS
+        Returns: returns string of characters -> STRINGS
         """
 
         letters = ""
@@ -50,7 +53,9 @@ class RandomWord:
     def get_word():
         """
         Gets a random line from the file.
-        linecache reads the entire file to the cache, so if this hits performance too badly it can be reworked.
+        
+        linecache reads the entire file to the cache, so if this hits performance too badly 
+        it can be reworked.
 
         Parameters: None
 
@@ -63,4 +68,4 @@ class RandomWord:
     def set_word(self):
         pass
 
-print(RandomWord.get_random_chars(10, True))
+# print(RandomWord.get_random_chars(10, True))
