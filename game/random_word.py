@@ -5,12 +5,11 @@ This currently unfinished, but will return a word as a string.
 # TODO
 # Implement a difficulty system.
 # Shorter words for practice mode.
-# Get characters by keyboard row.
 
 import random, linecache
 from game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
-FILE_NAME = RESOURCE_PATH + "clean_word_list.csv"
+FILE_NAME = RESOURCE_PATH + "clean_word_list_with_difficulty.csv"
 
 class RandomWord:
     def __init__(self, level = 0) -> None:
