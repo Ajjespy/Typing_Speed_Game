@@ -64,7 +64,10 @@ class Training(arcade.View):
         if symbol > 96 and symbol < 123:
             if len(self.userType) > 12:
                 self.userType = ""
-            self.userType = self.userType + chr(symbol)
+            if modifiers % 2 == 1:
+                self.userType = self.userType + chr(symbol).upper()
+            else:
+                self.userType = self.userType + chr(symbol)
 
     def on_key_release(self, symbol: int, modifiers: int):
         game.controller.Controller.get_key_press(self, symbol, True)
