@@ -1,5 +1,5 @@
 import arcade
-from game.controller import controller
+import game.controller
 from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
 from game.random_word import RandomWord
 
@@ -13,6 +13,7 @@ class Training(arcade.View):
         self.keyboard_sprites = arcade.SpriteList(use_spatial_hash = False)
         self.create_keyboard_sprites()
         self.randomWord = RandomWord.get_random_chars(length = 12)
+        self.userType = ""
 
     def create_keyboard_sprites(self):
         for i in range(1, 11):
@@ -53,15 +54,23 @@ class Training(arcade.View):
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.keyboard_sprites.draw()
         arcade.draw_text(self.randomWord, self.window.width/4, self.window.height*3/4, arcade.color.RED, 44, 400, "left", font_name="Ultra")
+        arcade.draw_text(self.userType, self.window.width/4, self.window.height*3/4 - 100, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
 
     def on_key_press(self, symbol: int, modifiers: int):
-        controller.get_key_press(self, symbol)
+        game.controller.Controller.get_key_press(self, symbol)
+        if symbol > 96 and symbol < 123:
+            if len(self.userType) > 12:
+                self.userType = ""
+            if modifiers % 2 == 1:
+                self.userType = self.userType + chr(symbol).upper()
+            else:
+                self.userType = self.userType + chr(symbol)
 
     def on_key_release(self, symbol: int, modifiers: int):
-        controller.get_key_press(self, symbol, True)
+        game.controller.Controller.get_key_press(self, symbol, True)
 
     def on_resize(self, width: int, height: int):
         if(width <= SCREEN_WIDTH):
