@@ -1,16 +1,11 @@
-"""
-Assigns a difficulty to each word based on the length and position of the letters on the keyboard.
-
-This can be modified to balance the game, but when run it will create a new file under "game",
-which must be moved to resources.
-"""
-
 import statistics as stats
+import numpy as np
 original_list = open('game/resources/clean_word_list.csv', 'r')
+difficulty_file = "game/resources/clean_word_list_with_difficulty.csv"
 
 ###########################################################################################
 # Use these to modify the relative weight of the length/key location. This is a multiplier!
-WORD_LENGTH_WEIGHT = 1
+WORD_LENGTH_WEIGHT = 1.5
 KEY_LOCATION_WEIGHT = 1
 ###########################################################################################
 
@@ -19,8 +14,10 @@ def gather_words():
 
     words = []
 
-    for line in original_list:
-        words.append(line.replace(' ','').replace('\n', '')) # removes all whitespace and \n characters
+    with open(difficulty_file) as file:
+
+        for line in file:
+            words.append(line.replace(' ','').replace('\n', '')) # removes all whitespace and \n characters
 
     return words
 
@@ -28,20 +25,80 @@ def gather_words():
 def parse():
     list = gather_words()
 
-    with open("clean_word_list_with_difficulty.csv", "w") as test_file: 
-        for line in list:
-            
-            parts = line.split(",")
-            index = parts[0]
-            word = parts[1]
-            pos = parts[2]
+    max = get_max(list)
 
-            difficulty = get_difficulty(word)
+    diff_1 = []
+    diff_2 = []
+    diff_3 = []
+    diff_4 = []
+    diff_5 = []
+    diff_6 = []
+    diff_7 = []
+    diff_8 = []
 
-            new_line = index + "," + word + "," + pos + "," + str(difficulty) + "\n"
+    for line in list:
+        
+        parts = line.split(",")
+        index = parts[0]
+        word = parts[1]
+        pos = parts[2]
+        diff = get_difficulty(word)
 
-            test_file.writelines(new_line)
+        new_line = f"{index}, {word}, {pos}, {diff}\n"
 
+        if diff < max / 10:
+            diff_1.append(new_line)
+        elif diff < (2 * max) / 10:
+            diff_2.append(new_line)
+        elif diff < (3 * max) / 10:
+            diff_3.append(new_line)
+        elif diff < (4 * max) / 10:
+            diff_4.append(new_line)
+        elif diff < (5 * max) / 10:
+            diff_5.append(new_line)
+        elif diff < (6 * max) / 10:
+            diff_6.append(new_line)
+        elif diff < (7 * max) / 10:
+            diff_7.append(new_line)
+        elif diff < (8 * max) / 10:
+            diff_8.append(new_line)
+
+    with open("diff_1.csv", "w") as file:
+        for line in diff_1:
+            file.writelines(line)
+    with open("diff_2.csv", "w") as file:
+        for line in diff_2:
+            file.writelines(line)
+    with open("diff_3.csv", "w") as file:
+        for line in diff_3:
+            file.writelines(line)
+    with open("diff_4.csv", "w") as file:
+        for line in diff_4:
+            file.writelines(line)
+    with open("diff_5.csv", "w") as file:
+        for line in diff_5:
+            file.writelines(line)
+    with open("diff_6.csv", "w") as file:
+        for line in diff_6:
+            file.writelines(line)
+    with open("diff_7.csv", "w") as file:
+        for line in diff_7:
+            file.writelines(line)
+    with open("diff_8.csv", "w") as file:
+        for line in diff_8:
+            file.writelines(line)
+    
+def get_max(list):
+
+    temp_list = []
+
+    for line in list:
+        
+        parts = line.split(",")
+        diff = parts[3]
+        temp_list.append(int(diff))
+
+    return np.amax(temp_list)
 
 def get_difficulty(word): # This sets all of the logic for word difficulty
     difficulty = 0
@@ -67,24 +124,9 @@ def get_difficulty(word): # This sets all of the logic for word difficulty
     return difficulty
 
 
-def analyze_file():
-
-    difficulty_list = []
-
-    with open("clean_word_list_with_difficulty.csv") as test_file:
-        for line in test_file:
-            parts = line.split(",")
-            difficulty_list.append(float(parts[3]))
-
-    print(f"The mean difficulty is: {stats.mean(difficulty_list)}")
-    print(f"The median difficulty is: {stats.median(difficulty_list)}")
-    print(f"The max difficulty is: {max(difficulty_list)}")
-    print(f"The min difficulty is: {min(difficulty_list)}")
-
 
 def main():
     parse()
-    analyze_file()
 
 if __name__ == "__main__":
     main()
