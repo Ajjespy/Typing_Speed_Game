@@ -130,7 +130,8 @@ dmypy.json
 .vscode/settings.json
 
 # Other
-game/resources/openProfanityList.csv
-game/resources/words_with_pos_dirty.csv
-game/resources/words_with_pos_original.csv
-game/resources/clean_word_list.csv
+speed_typing/game/resources/openProfanityList.csv
+speed_typing/game/resources/words_with_pos_dirty.csv
+speed_typing/game/resources/words_with_pos_original.csv
+speed_typing/game/resources/clean_word_list.csv
+sams.py
