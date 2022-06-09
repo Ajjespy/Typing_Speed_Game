@@ -1,4 +1,5 @@
-from speed_typing.game import random_word
+import string
+from speed_typing.game.random_word import RandomWord
 
 def test_random_word():
-    assert 1 == 1
+    assert type(RandomWord.get_random_chars) == string
