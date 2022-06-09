@@ -67,9 +67,9 @@ class Training(arcade.View):
         # background gets drawn first
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.keyboard_sprites.draw()
-        arcade.draw_text(self.randomWord, self.window.width/4, self.window.height * 3/4 - 48, arcade.color.RED, 44, 400, "left", font_name="Ultra")
-        arcade.draw_text(self.userType, self.window.width/4, self.window.height * 3/4 - 200, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
-        arcade.draw_text(f"Sec: {int((self.last_time))}", self.window.width - 400, self.window.height - 48, arcade.color.GREEN, 44, 500, "center", "Ultra")  
+        arcade.draw_text(self.randomWord, self.window.width / 4, self.window.height * 3 / 4 - 48, arcade.color.RED, 44, 400, "left", font_name="Ultra")
+        arcade.draw_text(self.userType, self.window.width / 4, self.window.height * 3 / 4 - 200, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
+        arcade.draw_text(f"Sec: {int(self.last_time)}", self.window.width - 400, self.window.height - 48, arcade.color.GREEN, 44, 500, "center", "Ultra")  
         arcade.draw_text(f"Words: {self.num_words}", self.window.width - 450, self.window.height - 100, arcade.color.GREEN, 44, 500, "center", "Ultra")
 
     def on_update(self, delta_time: float):
@@ -113,32 +113,32 @@ class Training(arcade.View):
         Currently no way to resize but necessary if we add in the future
         """
         if(width <= SCREEN_WIDTH):
-            for i in range(len(self.keyboard_sprites)-1):
+            for i in range(len(self.keyboard_sprites) - 1):
                 self.keyboard_sprites[i].scale = 0.5
                 if i < 10:
-                    self.keyboard_sprites[i].center_x = width / 4 + (i+1) * 72/2
+                    self.keyboard_sprites[i].center_x = width / 4 + (i + 1) * 72 / 2
                     self.keyboard_sprites[i].center_y = height / 2
                 elif i < 20:
-                    self.keyboard_sprites[i].center_x = width / 4 + (i-10) * 72/2 + 36
-                    self.keyboard_sprites[i].center_y = height / 2 - 72/2
+                    self.keyboard_sprites[i].center_x = width / 4 + (i - 10) * 72 / 2 + 36
+                    self.keyboard_sprites[i].center_y = height / 2 - 72 / 2
                 elif i < 29:
-                    self.keyboard_sprites[i].center_x = width / 4 + (i - 20) * 72/2 + 36 + 18
-                    self.keyboard_sprites[i].center_y = height / 2 - 72/2 * 2
+                    self.keyboard_sprites[i].center_x = width / 4 + (i - 20) * 72 / 2 + 36 + 18
+                    self.keyboard_sprites[i].center_y = height / 2 - 72 / 2 * 2
                 elif i < 37:
-                    self.keyboard_sprites[i].center_x = width / 4 + (i - 29) * 72/2 + 90
-                    self.keyboard_sprites[i].center_y = height / 2 - 72/2 * 3
+                    self.keyboard_sprites[i].center_x = width / 4 + (i - 29) * 72 / 2 + 90
+                    self.keyboard_sprites[i].center_y = height / 2 - 72 / 2 * 3
             
-            self.keyboard_sprites[len(self.keyboard_sprites)-1].scale = 1.42/2
-            self.keyboard_sprites[len(self.keyboard_sprites)-1].center_x = self.window.width / 4 + 36
-            self.keyboard_sprites[len(self.keyboard_sprites)-1].center_y = self.window.height / 2 - 72/2 * 3
+            self.keyboard_sprites[len(self.keyboard_sprites) - 1].scale = 1.42 / 2
+            self.keyboard_sprites[len(self.keyboard_sprites) - 1].center_x = self.window.width / 4 + 36
+            self.keyboard_sprites[len(self.keyboard_sprites) - 1].center_y = self.window.height / 2 - 72 / 2 * 3
         else:
-            for i in range(len(self.keyboard_sprites)-1):
+            for i in range(len(self.keyboard_sprites) - 1):
                 self.keyboard_sprites[i].scale = 1
                 if i < 10 :
                     self.keyboard_sprites[i].center_x = self.window.width / 4 + (i) * 72
                     self.keyboard_sprites[i].center_y = self.window.height / 2
                 elif i < 20:
-                    self.keyboard_sprites[i].center_x = self.window.width / 4 + (i -10) * 72 + 36
+                    self.keyboard_sprites[i].center_x = self.window.width / 4 + (i - 10) * 72 + 36
                     self.keyboard_sprites[i].center_y = self.window.height / 2 - 72
                 elif i < 29:
                     self.keyboard_sprites[i].center_x = self.window.width / 4 + (i - 20) * 72 + 36 + 18
@@ -147,6 +147,6 @@ class Training(arcade.View):
                     self.keyboard_sprites[i].center_x = self.window.width / 4 + (i - 29) * 72 + 90
                     self.keyboard_sprites[i].center_y = self.window.height / 2 - 72 * 3
             
-            self.keyboard_sprites[len(self.keyboard_sprites)-1].scale = 1.42
-            self.keyboard_sprites[len(self.keyboard_sprites)-1].center_x = self.window.width / 4 - 17
-            self.keyboard_sprites[len(self.keyboard_sprites)-1].center_y = self.window.height / 2 - 72 * 3
+            self.keyboard_sprites[len(self.keyboard_sprites) - 1].scale = 1.42
+            self.keyboard_sprites[len(self.keyboard_sprites) - 1].center_x = self.window.width / 4 - 17
+            self.keyboard_sprites[len(self.keyboard_sprites) - 1].center_y = self.window.height / 2 - 72 * 3
