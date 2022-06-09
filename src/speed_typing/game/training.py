@@ -1,7 +1,7 @@
 import arcade
-import game.controller
-from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
-from game.random_word import RandomWord
+import speed_typing.game.controller as controller
+from speed_typing.game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
+from speed_typing.game.random_word import RandomWord
 
 class Training(arcade.View):
     def __init__(self):
@@ -60,7 +60,7 @@ class Training(arcade.View):
         super().on_update(delta_time)
 
     def on_key_press(self, symbol: int, modifiers: int):
-        game.controller.Controller.get_key_press(self, symbol)
+        controller.Controller.get_key_press(self, symbol)
         if symbol > 96 and symbol < 123:
             if len(self.userType) > 12:
                 self.userType = ""
@@ -70,7 +70,7 @@ class Training(arcade.View):
                 self.userType = self.userType + chr(symbol)
 
     def on_key_release(self, symbol: int, modifiers: int):
-        game.controller.Controller.get_key_press(self, symbol, True)
+        controller.Controller.get_key_press(self, symbol, True)
 
     def on_resize(self, width: int, height: int):
         if(width <= SCREEN_WIDTH):
