@@ -57,8 +57,7 @@ class MainMenu(arcade.View):
 
         @quitButton.event("on_click")
         def on_click_texture_button(event):
-            #controller.on_change_view(self, 5)
-            print("quit Button pressed", event)
+            arcade.exit()
 
 
         self.vBox.add(instructionButton.with_space_around(right=80))
@@ -90,4 +89,7 @@ class MainMenu(arcade.View):
 
     def on_update(self, delta_time: float):
         return super().on_update(delta_time)
+
+    def on_key_press(self, symbol: int, modifiers: int):
+        game.controller.Controller.get_key_press(self, symbol)
     
