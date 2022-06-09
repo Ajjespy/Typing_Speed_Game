@@ -1,6 +1,6 @@
 import arcade
-from game.controller import controller
-from game.constants import RESOURCE_PATH
+from speed_typing.game.controller import controller
+from speed_typing.game.constants import RESOURCE_PATH
 
 class Display(arcade.View):
     def __init__(self):

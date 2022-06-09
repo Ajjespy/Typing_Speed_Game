@@ -1,9 +1,9 @@
 from tkinter import VERTICAL
 import arcade
 import arcade.gui
-import game.constants
+from speed_typing.game.constants import RESOURCE_PATH
 #from game.mainmenucontroller import mainmenucontroller
-import game.controller
+import speed_typing.game.controller
 
 
 class MainMenu(arcade.View):
@@ -16,18 +16,18 @@ class MainMenu(arcade.View):
         self.manager.enable()
         self.vBox = arcade.gui.UIBoxLayout(vertical=False)
 
-        self.background = arcade.load_texture(f"{game.constants.RESOURCE_PATH}TitleScreen.png")
+        self.background = arcade.load_texture(f"{RESOURCE_PATH}TitleScreen.png")
 
-        textureLearn = arcade.load_texture(f"{game.constants.RESOURCE_PATH}LearnButton.png")
-        textureLearnHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}LearnButtonHovered.png")
-        textureGame = arcade.load_texture(f"{game.constants.RESOURCE_PATH}GameButton.png")
-        textureGameHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}GameButtonHovered.png")
-        textureScores = arcade.load_texture(f"{game.constants.RESOURCE_PATH}ScoresButton.png")
-        textureScoresHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}ScoresButtonHovered.png")
-        textureInstructions = arcade.load_texture(f"{game.constants.RESOURCE_PATH}InstructionsButton.png")
-        textureInstructionsHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}InstructionsButtonHovered.png")
-        textureQuit = arcade.load_texture(f"{game.constants.RESOURCE_PATH}QuitButton.png")
-        textureQuitHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}QuitButtonHovered.png")
+        textureLearn = arcade.load_texture(f"{RESOURCE_PATH}LearnButton.png")
+        textureLearnHovered = arcade.load_texture(f"{RESOURCE_PATH}LearnButtonHovered.png")
+        textureGame = arcade.load_texture(f"{RESOURCE_PATH}GameButton.png")
+        textureGameHovered = arcade.load_texture(f"{RESOURCE_PATH}GameButtonHovered.png")
+        textureScores = arcade.load_texture(f"{RESOURCE_PATH}ScoresButton.png")
+        textureScoresHovered = arcade.load_texture(f"{RESOURCE_PATH}ScoresButtonHovered.png")
+        textureInstructions = arcade.load_texture(f"{RESOURCE_PATH}InstructionsButton.png")
+        textureInstructionsHovered = arcade.load_texture(f"{RESOURCE_PATH}InstructionsButtonHovered.png")
+        textureQuit = arcade.load_texture(f"{RESOURCE_PATH}QuitButton.png")
+        textureQuitHovered = arcade.load_texture(f"{RESOURCE_PATH}QuitButtonHovered.png")
 
         learnButton = arcade.gui.UITextureButton(texture=textureLearn,texture_hovered=textureLearnHovered, scale= 0.5)
         gameButton = arcade.gui.UITextureButton(texture=textureGame,texture_hovered=textureGameHovered, scale= 0.5)
@@ -37,7 +37,7 @@ class MainMenu(arcade.View):
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
-            game.controller.Controller.on_change_view(self, 1)
+            speed_typing.game.controller.Controller.on_change_view(self, 1)
             print("learn Button pressed", event)
 
 

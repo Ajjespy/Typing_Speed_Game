@@ -1,7 +1,7 @@
 from arcade import Window, set_background_color, run
 from arcade.color import ARSENIC
-from game.constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
-from game.mainmenu import MainMenu
+from speed_typing.game.constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
+from speed_typing.game.mainmenu import MainMenu
 
 def main():
     window = Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable = False, fullscreen = True)
