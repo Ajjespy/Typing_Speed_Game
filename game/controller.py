@@ -27,11 +27,16 @@ class Controller:
                 pass
 
         if (symbol == arcade.key.LSHIFT or symbol == arcade.key.RSHIFT) and not unpress:
-            director.keyboard_sprites[len(director.keyboard_sprites)-1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_pressed/Shift_Alt_Key_Light.png")
-
+            try:
+                director.keyboard_sprites[len(director.keyboard_sprites)-1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_pressed/Shift_Alt_Key_Light.png")
+            except:
+                pass
         if (symbol == arcade.key.LSHIFT or symbol == arcade.key.RSHIFT) and unpress:
-            director.keyboard_sprites[len(director.keyboard_sprites)-1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png")
-
+            try:
+                director.keyboard_sprites[len(director.keyboard_sprites)-1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png")
+            except:
+                pass
+            
         if (symbol == arcade.key.ESCAPE):
             arcade.exit()
 
