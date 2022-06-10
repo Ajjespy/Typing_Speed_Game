@@ -1,5 +1,3 @@
-![Tests](https://github.com/Ajjespy/Typing_Speed_Game/actions/workflows/tests.yml/badge.svg)
-
 # Overview
 
 This program is a game to both test and grow students typing and spelling abilities. As a word comes on the screen the student must type the word before is reaches the end, and future words won't wait for the first to be cleared. After you hit play the trial begins.
