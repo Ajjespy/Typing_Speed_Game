@@ -1,4 +1,4 @@
-from tkinter import VERTICAL
+# from tkinter import VERTICAL
 import arcade
 import arcade.gui
 from speed_typing.game.constants import RESOURCE_PATH
@@ -9,7 +9,6 @@ import speed_typing.game.controller
 class MainMenu(arcade.View):
     def __init__(self):
         super().__init__()
-
 
     def setup(self):
         self.manager = arcade.gui.UIManager()
@@ -29,37 +28,35 @@ class MainMenu(arcade.View):
         textureQuit = arcade.load_texture(f"{RESOURCE_PATH}QuitButton.png")
         textureQuitHovered = arcade.load_texture(f"{RESOURCE_PATH}QuitButtonHovered.png")
 
-        learnButton = arcade.gui.UITextureButton(texture=textureLearn,texture_hovered=textureLearnHovered, scale= 0.5)
-        gameButton = arcade.gui.UITextureButton(texture=textureGame,texture_hovered=textureGameHovered, scale= 0.5)
-        scoresButton = arcade.gui.UITextureButton(texture=textureScores,texture_hovered=textureScoresHovered, scale= 0.5)
-        instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
-        quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
+        learnButton = arcade.gui.UITextureButton(texture=textureLearn, texture_hovered=textureLearnHovered, scale=0.5)
+        gameButton = arcade.gui.UITextureButton(texture=textureGame, texture_hovered=textureGameHovered, scale=0.5)
+        scoresButton = arcade.gui.UITextureButton(texture=textureScores, texture_hovered=textureScoresHovered, scale=0.5)
+        instructionButton = arcade.gui.UITextureButton(texture=textureInstructions, texture_hovered=textureInstructionsHovered, scale=0.5)
+        quitButton = arcade.gui.UITextureButton(texture=textureQuit, texture_hovered=textureQuitHovered, scale=0.5)
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
             speed_typing.game.controller.Controller.on_change_view(self, 1)
             print("learn Button pressed", event)
 
-
         @gameButton.event("on_click")
         def on_click_texture_button(event):
-            #controller.on_change_view(self, 2)
+            # controller.on_change_view(self, 2)
             print("game Button pressed")
 
         @scoresButton.event("on_click")
         def on_click_texture_button(event):
-            #controller.on_change_view(self, 3)
+            # controller.on_change_view(self, 3)
             print("scores Button pressed", event)
 
         @instructionButton.event("on_click")
         def on_click_texture_button(event):
-            #controller.on_change_view(self, 4)
+            # controller.on_change_view(self, 4)
             print("instruction Button pressed", event)
 
         @quitButton.event("on_click")
         def on_click_texture_button(event):
             arcade.exit()
-
 
         self.vBox.add(instructionButton.with_space_around(right=80))
         self.vBox.add(learnButton.with_space_around(right=80))
@@ -78,7 +75,7 @@ class MainMenu(arcade.View):
         self.manager.add(
             arcade.gui.UIPadding(
                 child=self.vBox,
-                bg_color=(0,0,0,75)
+                bg_color=(0, 0, 0, 75)
             )
         )
 
@@ -93,4 +90,3 @@ class MainMenu(arcade.View):
 
     def on_key_press(self, symbol: int, modifiers: int):
         speed_typing.game.controller.Controller.get_key_press(self, symbol)
-    

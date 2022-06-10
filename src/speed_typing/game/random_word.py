@@ -2,7 +2,8 @@
 # Implement a difficulty system.
 # Shorter words for practice mode.
 
-import random, linecache
+import random
+import linecache
 
 from speed_typing.game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
@@ -16,17 +17,17 @@ DIFF_6 = RESOURCE_PATH + "word_files/diff_6.csv"
 DIFF_7 = RESOURCE_PATH + "word_files/diff_7.csv"
 DIFF_8 = RESOURCE_PATH + "word_files/diff_8.csv"
 
+
 class RandomWord:
     """
     This class is used to get a random word or characters as a string.
 
-    Static Methods: 
-    get_random_chars() 
+    Static Methods:
+    get_random_chars()
     get_random_word()
     """
 
     word = None
-    
 
     def set_word(difficulty):
         linecache.clearcache()
@@ -55,8 +56,7 @@ class RandomWord:
         parts = line.split(",")
         RandomWord.word = parts[1]
 
-        
-    def get_word(difficulty = 3) -> str:
+    def get_word(difficulty=3) -> str:
         """
         Gets a random word in difficulty range.
 
@@ -68,19 +68,18 @@ class RandomWord:
         """
 
         RandomWord.set_word(difficulty)
-        
+
         return RandomWord.word
 
-
-    def get_random_chars(length = 1, lower_case = True, row = "ALL") -> str:
+    def get_random_chars(length=1, lower_case=True, row="ALL") -> str:
         """
         Gets a string of random characters from all or specific keyboard rows.
-        
+
         Parameters:
         number (int): the number of characters that will be returned
         upper_case (bool): return will be upper case if true
         row (str): Specifies which row the letters will be drawn from
-                    must be "TOP", "MIDDLE", "TOP_MIDDLE", or "BOTTOM" 
+                    must be "TOP", "MIDDLE", "TOP_MIDDLE", or "BOTTOM"
                     Default is "ALL"
 
         Returns:
@@ -92,7 +91,7 @@ class RandomWord:
             letters += LETTERS_BY_ROW[row][random.randint(0, len(LETTERS_BY_ROW[row]) - 1)]
 
         if lower_case:
-            return letters.lower() # TODO allow string to have variable numbers of capitals mixed in
+            return letters.lower()  # TODO allow string to have variable numbers of capitals mixed in
         else:
             return letters
 

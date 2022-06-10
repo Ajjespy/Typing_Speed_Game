@@ -2,6 +2,7 @@ import arcade
 from speed_typing.game.controller import controller
 from speed_typing.game.constants import RESOURCE_PATH
 
+
 class Display(arcade.View):
     def __init__(self):
         super().__init__()
@@ -9,12 +10,12 @@ class Display(arcade.View):
 
     def setup(self):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}TitleScreen.png")
-        self.keyboard_sprites = arcade.SpriteList(use_spatial_hash = False)
+        self.keyboard_sprites = arcade.SpriteList(use_spatial_hash=False)
         self.create_keyboard_sprites()
 
     def create_keyboard_sprites(self):
         for i in range(1, 11):
-            new_sprite = arcade.Sprite(f"{RESOURCE_PATH}keys_unpressed/{i % 10}_Key_Dark.png", 1)
+            new_sprite = arcade.Sprite(f"{RESOURCE_PATH}keys_unpressed/{i%10}_Key_Dark.png", 1)
             new_sprite.center_x = self.window.width / 4 + (i-1) * 72
             new_sprite.center_y = self.window.height / 2
             self.keyboard_sprites.append(new_sprite)
@@ -44,13 +45,12 @@ class Display(arcade.View):
         self.keyboard_sprites.append(new_sprite)
         del new_sprite
 
-
     def on_draw(self):
         super().on_draw()
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.keyboard_sprites.draw()
-        #self.sprite.draw()
+        # self.sprite.draw()
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
