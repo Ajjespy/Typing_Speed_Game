@@ -1,14 +1,8 @@
 import arcade
-<<<<<<< HEAD:src/speed_typing/game/training.py
 import speed_typing.game.controller as controller
 from speed_typing.game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
 from speed_typing.game.random_word import RandomWord
-=======
-import game.controller
-from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
-from game.random_word import RandomWord
 from time import time
->>>>>>> main:game/training.py
 
 class Training(arcade.View):
     def __init__(self):
@@ -111,12 +105,7 @@ class Training(arcade.View):
                 self.userType = self.userType + chr(symbol)
 
     def on_key_release(self, symbol: int, modifiers: int):
-<<<<<<< HEAD:src/speed_typing/game/training.py
         controller.Controller.get_key_press(self, symbol, True)
-=======
-        # lets controller know that a key has become unpressed
-        game.controller.Controller.get_key_press(self, symbol, True)
->>>>>>> main:game/training.py
 
     def on_resize(self, width: int, height: int):
         """
