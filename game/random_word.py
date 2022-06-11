@@ -54,7 +54,7 @@ class RandomWord:
 
         line = linecache.getline(file_name, random.randint(1, length))
         parts = line.split(",")
-        RandomWord.word = parts[1]
+        RandomWord.word = parts[1].strip()
 
         
     def get_word(difficulty = 3) -> str:
