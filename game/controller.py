@@ -4,6 +4,7 @@ from game.constants import RESOURCE_PATH, convertLetters
 #from game.training import Training
 #from game.scores import scores
 #from game.instructions import instructions
+import game.trainingmenu
 import game.training
 import game.mainmenu
 
@@ -43,16 +44,20 @@ class Controller:
         if (symbol == arcade.key.DELETE):
             Controller.on_change_view(director, 0)
 
-    def on_change_view(director, view):
+    def on_change_view(director, view, difficulty = "ALL"):
         """
         This method will change which window the user is looking at.
         Args:
         director - Window
-        view - int {0: MainMenu(), 1 : Training(), 2 : game(), 3: scores(), 4: instructions(), 5: quit}
+        view - int {0: MainMenu(), 1 : TrainingMenu(), 2: Training, 3 : game(), 4 : scores(), 5 : instructions(), 6 : quit}
         """
-        viewDict = {0: game.mainmenu.MainMenu(), 1 : game.training.Training()}
+        viewDict = {0: game.mainmenu.MainMenu(), 1 : game.trainingmenu.TrainingMenu(), 2 : game.training.Training()}
         if view in viewDict:
-            if view != 5:
+            if view == 2:
+                gameView = viewDict[view]
+                gameView.setup(difficulty = difficulty)
+                director.window.show_view(gameView)
+            elif view != 6:
                 gameView = viewDict[view]
                 gameView.setup()
                 director.window.show_view(gameView)
