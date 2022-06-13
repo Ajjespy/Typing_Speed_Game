@@ -4,7 +4,6 @@
 
 import random, linecache
 
-from numpy import diff
 from game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
 FILE_NAME = RESOURCE_PATH + "clean_word_list_with_difficulty.csv"
