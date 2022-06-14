@@ -134,3 +134,4 @@ game/resources/openProfanityList.csv
 game/resources/words_with_pos_dirty.csv
 game/resources/words_with_pos_original.csv
 game/resources/clean_word_list.csv
+src/game/resources/word_files/make_dictionary.py
