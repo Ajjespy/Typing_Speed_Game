@@ -26,9 +26,6 @@ class RandomWord:
     get_random_word()
     """
 
-    word = None
-    
-
     def set_word(difficulty):
         linecache.clearcache()
 
@@ -54,7 +51,7 @@ class RandomWord:
 
         line = linecache.getline(file_name, random.randint(1, length))
         parts = line.split(",")
-        RandomWord.word = parts[1].strip()
+        return parts[1].strip()
 
         
     def get_word(difficulty = 3) -> str:
@@ -67,10 +64,11 @@ class RandomWord:
         Returns:
         str: random word
         """
+        if difficulty > 8:
+            raise OverflowError
 
-        RandomWord.set_word(difficulty)
-        
-        return RandomWord.word
+        word = RandomWord.set_word(difficulty)
+        return word
 
 
     def get_random_chars(length = 1, lower_case = True, row = "ALL") -> str:
