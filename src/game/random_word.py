@@ -2,8 +2,8 @@
 # Implement a difficulty system.
 # Shorter words for practice mode.
 
-import random, linecache
-
+import random
+import linecache
 from game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
 FILE_NAME = RESOURCE_PATH + "clean_word_list_with_difficulty.csv"
@@ -15,6 +15,7 @@ DIFF_5 = RESOURCE_PATH + "word_files/diff_5.csv"
 DIFF_6 = RESOURCE_PATH + "word_files/diff_6.csv"
 DIFF_7 = RESOURCE_PATH + "word_files/diff_7.csv"
 DIFF_8 = RESOURCE_PATH + "word_files/diff_8.csv"
+
 
 class RandomWord:
     """
