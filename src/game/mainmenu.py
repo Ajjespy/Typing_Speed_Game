@@ -52,8 +52,8 @@ class MainMenu(arcade.View):
 
         @instructionButton.event("on_click")
         def on_click_texture_button(event):
-            #controller.on_change_view(self, 4)
-            print("instruction Button pressed", event)
+            game.controller.Controller.on_change_view(self, 4)
+            # print("instruction Button pressed", event)
 
         @quitButton.event("on_click")
         def on_click_texture_button(event):
