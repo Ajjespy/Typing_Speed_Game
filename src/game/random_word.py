@@ -2,8 +2,8 @@
 # Implement a difficulty system.
 # Shorter words for practice mode.
 
-import random, linecache
-
+import random
+import linecache
 from game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
 FILE_NAME = RESOURCE_PATH + "clean_word_list_with_difficulty.csv"
@@ -16,6 +16,7 @@ DIFF_6 = RESOURCE_PATH + "word_files/diff_6.csv"
 DIFF_7 = RESOURCE_PATH + "word_files/diff_7.csv"
 DIFF_8 = RESOURCE_PATH + "word_files/diff_8.csv"
 
+
 class RandomWord:
     """
     This class is used to get a random word or characters as a string.
@@ -24,9 +25,6 @@ class RandomWord:
     get_random_chars() 
     get_random_word()
     """
-
-    word = None
-    
 
     def set_word(difficulty):
         linecache.clearcache()
@@ -53,7 +51,7 @@ class RandomWord:
 
         line = linecache.getline(file_name, random.randint(1, length))
         parts = line.split(",")
-        RandomWord.word = parts[1].strip()
+        return parts[1].strip()
 
         
     def get_word(difficulty = 3) -> str:
@@ -66,10 +64,11 @@ class RandomWord:
         Returns:
         str: random word
         """
+        if difficulty > 8:
+            raise OverflowError
 
-        RandomWord.set_word(difficulty)
-        
-        return RandomWord.word
+        word = RandomWord.set_word(difficulty)
+        return word
 
 
     def get_random_chars(length = 1, lower_case = True, row = "ALL") -> str:

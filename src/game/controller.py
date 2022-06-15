@@ -7,6 +7,8 @@ from game.constants import RESOURCE_PATH, convertLetters
 import game.trainingmenu
 import game.training
 import game.mainmenu
+import game.scoremenu
+import game.instructionsmenu
 
 class Controller:
     def get_key_press(director, symbol, unpress = False, modifier = None):
@@ -51,7 +53,11 @@ class Controller:
         director - Window
         view - int {0: MainMenu(), 1 : TrainingMenu(), 2: Training, 3 : game(), 4 : scores(), 5 : instructions(), 6 : quit}
         """
-        viewDict = {0: game.mainmenu.MainMenu(), 1 : game.trainingmenu.TrainingMenu(), 2 : game.training.Training()}
+        viewDict = {0: game.mainmenu.MainMenu(), 
+                    1: game.trainingmenu.TrainingMenu(), 
+                    2: game.training.Training(), 
+                    3: game.scoremenu.ScoreMenu(),
+                    4: game.instructionsmenu.InstructionsMenu()}
         if view in viewDict:
             if view == 2:
                 gameView = viewDict[view]
