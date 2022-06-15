@@ -9,6 +9,7 @@ import game.training
 import game.mainmenu
 import game.scoremenu
 import game.instructionsmenu
+import game.levelGenerator
 
 class Controller:
     def get_key_press(director, symbol, unpress = False, modifier = None):
@@ -57,7 +58,8 @@ class Controller:
                     1: game.trainingmenu.TrainingMenu(), 
                     2: game.training.Training(), 
                     3: game.scoremenu.ScoreMenu(),
-                    4: game.instructionsmenu.InstructionsMenu()}
+                    4: game.instructionsmenu.InstructionsMenu(),
+                    5: game.levelGenerator.LevelGenerator()}
         if view in viewDict:
             if view == 2:
                 gameView = viewDict[view]

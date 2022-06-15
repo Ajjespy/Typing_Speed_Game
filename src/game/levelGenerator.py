@@ -9,19 +9,13 @@ class LevelGenerator(arcade.View):
     def __init__(self):
         super().__init__()
         self.background = None
-
-class Typing(arcade.View):
-    def __init__(self):
-        super().__init__()
-        self.background = None
         
     def setup(self, difficulty = "ALL"):
         """
         Runs before the view is changed used for resetting the view without deleting the object
         """
         self.background = arcade.load_texture(f"{RESOURCE_PATH}ShootZone.png")
-        self.keyboard_sprites = arcade.SpriteList(use_spatial_hash = False)
-        self.create_keyboard_sprites()
+ 
         if difficulty == "ALL":
             if randint(0, 1) == 1:
                 self.randomWord = RandomWord.get_random_chars(length = 12, row = difficulty)
@@ -29,6 +23,7 @@ class Typing(arcade.View):
                 self.randomWord = RandomWord.get_word(randint(1, 8))
         else:
             self.randomWord = RandomWord.get_random_chars(length = 12, row = difficulty)
+            
         self.userType = ""
         self.last_time = 0
         self.num_words = 0
@@ -38,9 +33,15 @@ class Typing(arcade.View):
 
 
     def on_draw(self):
-        # background gets drawn first
         super().on_draw()
         arcade.start_render()
+        # background gets drawn first
+        arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+
+        arcade.draw_text(self.randomWord, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 48, arcade.color.RED, 44, 400, "left", font_name="Ultra")
+        arcade.draw_text(self.userType, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 200, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
+        arcade.draw_text(f"Sec: {int(self.last_time)}", self.window.width - 400, self.window.height - 48, arcade.color.GREEN, 44, 500, "center", "Ultra")  
+        arcade.draw_text(f"Words: {self.num_words}", self.window.width - 450, self.window.height - 100, arcade.color.GREEN, 44, 500, "center", "Ultra")
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
