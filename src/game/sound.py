@@ -21,6 +21,9 @@ class SoundHandler(Sound):
 
 
     def update_sound_list(self, sound_list) -> None:
+        """Updates list of songs and sound effects.
+            Parameters: 
+                sound_list: list - takes a list of file paths to sound files"""
         self.sound_list = sound_list
 
     def advance_song(self) -> None:
@@ -32,6 +35,7 @@ class SoundHandler(Sound):
 
 
     def get_stream_position(self, player) -> float:
+        """Returns position in the sound file in seconds. Resets to 0.0 when sound finishes."""
         return super().get_stream_position(self.current_player)
 
     def play_song(self) -> None:
@@ -57,7 +61,7 @@ class SoundHandler(Sound):
         time.sleep(0.03)
 
     
-    def change_song(self) -> None:
+    def change_song(self) -> None:  # TODO This does not work. ⊙﹏⊙∥
         self.sound.stop(self.current_player)
         self.play_song()
 
