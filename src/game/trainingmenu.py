@@ -52,6 +52,9 @@ class TrainingMenu(arcade.View):
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
+        SOUND_HANDLER.update_sound_list([])  # add music here
+        SOUND_HANDLER.play_song()
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)

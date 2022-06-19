@@ -1,5 +1,6 @@
 from os import path
 from arcade import load_font
+import game.sound as sound
 
 SCREEN_WIDTH = int(1920 / 2)
 SCREEN_HEIGHT = int(1080 / 2)
@@ -9,8 +10,7 @@ RESOURCE_PATH = f"{path.dirname(path.abspath(__file__))}/resources/"
 
 FONT = load_font(f"{RESOURCE_PATH}westernfont.ttf")
 
-MUSIC_VOLUME = 1
-SFX_VOLUME = 1
+SOUND_HANDLER = sound.SoundHandler()
 
 convertLetters = dict()
 alphabet = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"]

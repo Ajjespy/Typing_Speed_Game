@@ -1,5 +1,6 @@
 import arcade
 import arcade.gui
+import game.constants as const
 import game.controller as controller
 from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH
 
@@ -27,14 +28,20 @@ class ScoreMenu(arcade.View):
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
+        const.SOUND_HANDLER.update_sound_list([])  # add music here
+        const.SOUND_HANDLER.play_song()
+
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.manager.draw()
         arcade.draw_text(f"Score: 0", SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, arcade.color.GREEN, 44, 500, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
 
+
     def on_update(self, delta_time: float):
         return super().on_update(delta_time)
+
 
     def on_key_press(self, symbol: int, modifiers: int):
         controller.Controller.get_key_press(self, symbol = symbol, modifier = modifiers)

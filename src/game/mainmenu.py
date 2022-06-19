@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 import game.constants as const
 import game.controller
+from game.sound import SoundHandler
 import time
 from tkinter import VERTICAL
 
@@ -41,10 +42,8 @@ class MainMenu(arcade.View):
         instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
         quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
 
-        self.music_list = [f"{const.RESOURCE_PATH}music/307-HiddenVillage.mp3",]
-        self.current_song_index = 0
-        self.play_song()
-
+        const.SOUND_HANDLER.update_sound_list([f"{const.RESOURCE_PATH}music/307-HiddenVillage.mp3",])
+        const.SOUND_HANDLER.play_song()
 
 
         @learnButton.event("on_click")
@@ -95,29 +94,6 @@ class MainMenu(arcade.View):
         )
 
 
-    def advance_song(self):
-        """Advance our pointer to the next song."""
-        self.current_song_index += 1
-        if self.current_song_index >= len(self.music_list):
-            self.current_song_index = 0
-
-
-    def play_song(self):
-        """ Plays song. """
-        if self.music:  # Stop what is currently playing.
-            self.music.stop()
-
-        # Play the next song
-        self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
-        self.current_player = self.music.play(const.MUSIC_VOLUME)
-        # Small delay so the function doesn't skip a track
-        time.sleep(0.03)
-
-
-    def fade_song(self):
-        """Fades the music out for screen transitions."""
-        pass
-
     def on_draw(self):
         super().on_draw()
         arcade.start_render()
@@ -126,11 +102,6 @@ class MainMenu(arcade.View):
 
 
     def on_update(self, delta_time: float):
-        position = self.music.get_stream_position(self.current_player)  # This will loop the music
-        if position == 0.0:
-            self.advance_song()
-            self.play_song()
-
         return super().on_update(delta_time)
 
 
