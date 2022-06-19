@@ -1,13 +1,20 @@
-from tkinter import VERTICAL
 import arcade
 import arcade.gui
-import game.constants
+import game.constants as const
 import game.controller
+import time
+from tkinter import VERTICAL
+
+
 
 
 class MainMenu(arcade.View):
     def __init__(self):
         super().__init__()
+        self.music_list = []
+        self.current_song_index = 0
+        self.current_player = None
+        self.music = None
 
 
     def setup(self):
@@ -15,24 +22,30 @@ class MainMenu(arcade.View):
         self.manager.enable()
         self.vBox = arcade.gui.UIBoxLayout(vertical=False)
 
-        self.background = arcade.load_texture(f"{game.constants.RESOURCE_PATH}TitleScreen.png")
+        self.background = arcade.load_texture(f"{const.RESOURCE_PATH}TitleScreen.png")
 
-        textureLearn = arcade.load_texture(f"{game.constants.RESOURCE_PATH}LearnButton.png")
-        textureLearnHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}LearnButtonHovered.png")
-        textureGame = arcade.load_texture(f"{game.constants.RESOURCE_PATH}GameButton.png")
-        textureGameHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}GameButtonHovered.png")
-        textureScores = arcade.load_texture(f"{game.constants.RESOURCE_PATH}ScoresButton.png")
-        textureScoresHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}ScoresButtonHovered.png")
-        textureInstructions = arcade.load_texture(f"{game.constants.RESOURCE_PATH}InstructionsButton.png")
-        textureInstructionsHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}InstructionsButtonHovered.png")
-        textureQuit = arcade.load_texture(f"{game.constants.RESOURCE_PATH}QuitButton.png")
-        textureQuitHovered = arcade.load_texture(f"{game.constants.RESOURCE_PATH}QuitButtonHovered.png")
+        textureLearn = arcade.load_texture(f"{const.RESOURCE_PATH}LearnButton.png")
+        textureLearnHovered = arcade.load_texture(f"{const.RESOURCE_PATH}LearnButtonHovered.png")
+        textureGame = arcade.load_texture(f"{const.RESOURCE_PATH}GameButton.png")
+        textureGameHovered = arcade.load_texture(f"{const.RESOURCE_PATH}GameButtonHovered.png")
+        textureScores = arcade.load_texture(f"{const.RESOURCE_PATH}ScoresButton.png")
+        textureScoresHovered = arcade.load_texture(f"{const.RESOURCE_PATH}ScoresButtonHovered.png")
+        textureInstructions = arcade.load_texture(f"{const.RESOURCE_PATH}InstructionsButton.png")
+        textureInstructionsHovered = arcade.load_texture(f"{const.RESOURCE_PATH}InstructionsButtonHovered.png")
+        textureQuit = arcade.load_texture(f"{const.RESOURCE_PATH}QuitButton.png")
+        textureQuitHovered = arcade.load_texture(f"{const.RESOURCE_PATH}QuitButtonHovered.png")
 
         learnButton = arcade.gui.UITextureButton(texture=textureLearn,texture_hovered=textureLearnHovered, scale= 0.5)
         gameButton = arcade.gui.UITextureButton(texture=textureGame,texture_hovered=textureGameHovered, scale= 0.5)
         scoresButton = arcade.gui.UITextureButton(texture=textureScores,texture_hovered=textureScoresHovered, scale= 0.5)
         instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
         quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
+
+        self.music_list = [f"{const.RESOURCE_PATH}music/307-HiddenVillage.mp3",]
+        self.current_song_index = 0
+        self.play_song()
+
+
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
@@ -81,14 +94,45 @@ class MainMenu(arcade.View):
             )
         )
 
+
+    def advance_song(self):
+        """Advance our pointer to the next song."""
+        self.current_song_index += 1
+        if self.current_song_index >= len(self.music_list):
+            self.current_song_index = 0
+
+
+    def play_song(self):
+        """ Plays song. """
+        if self.music:  # Stop what is currently playing.
+            self.music.stop()
+
+        # Play the next song
+        self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
+        self.current_player = self.music.play(const.MUSIC_VOLUME)
+        # Small delay so the function doesn't skip a track
+        time.sleep(0.03)
+
+
+    def fade_song(self):
+        """Fades the music out for screen transitions."""
+        pass
+
     def on_draw(self):
         super().on_draw()
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.manager.draw()
 
+
     def on_update(self, delta_time: float):
+        position = self.music.get_stream_position(self.current_player)  # This will loop the music
+        if position == 0.0:
+            self.advance_song()
+            self.play_song()
+
         return super().on_update(delta_time)
+
 
     def on_key_press(self, symbol: int, modifiers: int):
         game.controller.Controller.get_key_press(self, symbol)
