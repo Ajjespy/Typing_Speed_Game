@@ -46,6 +46,7 @@ class Controller:
 
         if (symbol == arcade.key.DELETE):
             Controller.on_change_view(director, 0)
+        
 
     def on_change_view(director, view, difficulty = "ALL"):
         """
@@ -54,20 +55,25 @@ class Controller:
         director - Window
         view - int {0: MainMenu(), 1 : TrainingMenu(), 2: Training, 3 : game(), 4 : scores(), 5 : instructions(), 6 : quit}
         """
-        viewDict = {0: game.mainmenu.MainMenu(), 
-                    1: game.trainingmenu.TrainingMenu(), 
-                    2: game.training.Training(), 
+
+        viewDict = {
+                    0: game.mainmenu.MainMenu(),
+                    1: game.trainingmenu.TrainingMenu(),
+                    2: game.training.Training(),
                     3: game.scoremenu.ScoreMenu(),
                     4: game.instructionsmenu.InstructionsMenu(),
-                    5: game.levelGenerator.LevelGenerator()}
+                    5: game.levelGenerator.LevelGenerator(),
+                    }
         if view in viewDict:
             if view == 2:
                 gameView = viewDict[view]
                 gameView.setup(difficulty = difficulty)
                 director.window.show_view(gameView)
-            elif view != 6:
+
+            elif view in viewDict.keys():
                 gameView = viewDict[view]
                 gameView.setup()
                 director.window.show_view(gameView)
+
             else:
                 director.window.close_window()
