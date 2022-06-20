@@ -1,6 +1,7 @@
 import arcade
 import game.controller
-from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH, MUSIC_HANDLER
+import game.constants as const
 from game.random_word import RandomWord
 from time import time
 from random import randint
@@ -30,6 +31,9 @@ class Training(arcade.View):
         self.start_type_time = None
         self.end_type_time = None
         self.difficulty = difficulty
+
+        MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/saloon-piano-honky-tonk-14540.mp3",])  # add music here
+        MUSIC_HANDLER.play_song()
 
     def create_keyboard_sprites(self):
         """

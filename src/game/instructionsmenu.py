@@ -1,5 +1,6 @@
 import arcade
 import arcade.gui
+import game.constants as const
 import game.controller as controller
 from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH
 
@@ -26,6 +27,10 @@ class InstructionsMenu(arcade.View):
         self.manager.add(arcade.gui.UIAnchorWidget(anchor_x = "center", anchor_y = "center", align_x=660, align_y=-350, child = self.vBox))
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
+
+        const.MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
+        const.MUSIC_HANDLER.play_song()
+
 
     def on_draw(self):
         arcade.start_render()
