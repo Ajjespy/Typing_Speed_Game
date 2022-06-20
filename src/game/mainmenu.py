@@ -42,8 +42,8 @@ class MainMenu(arcade.View):
         instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
         quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
 
-        const.SOUND_HANDLER.update_sound_list([f"{const.RESOURCE_PATH}music/307-HiddenVillage.mp3",])
-        const.SOUND_HANDLER.play_song()
+        const.MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}music/307-HiddenVillage.mp3",])
+        const.MUSIC_HANDLER.play_song()
 
 
         @learnButton.event("on_click")

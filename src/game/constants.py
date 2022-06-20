@@ -10,7 +10,8 @@ RESOURCE_PATH = f"{path.dirname(path.abspath(__file__))}/resources/"
 
 FONT = load_font(f"{RESOURCE_PATH}westernfont.ttf")
 
-SOUND_HANDLER = sound.SoundHandler()  # creates SoundHandler class
+MUSIC_HANDLER = sound.MusicHandler()  # creates MusicHandler class
+SFX_HANDLER = sound.SFXHandler()
 
 convertLetters = dict()
 alphabet = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"]

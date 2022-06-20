@@ -28,8 +28,8 @@ class ScoreMenu(arcade.View):
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
-        const.SOUND_HANDLER.update_sound_list([])  # add music here
-        const.SOUND_HANDLER.play_song()
+        const.MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
+        const.MUSIC_HANDLER.play_song()
 
 
     def on_draw(self):

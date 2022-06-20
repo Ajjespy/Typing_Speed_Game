@@ -1,6 +1,6 @@
 import arcade
 import game.controller
-from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH, SOUND_HANDLER
+from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH, MUSIC_HANDLER
 from game.random_word import RandomWord
 from time import time
 from random import randint
@@ -31,8 +31,8 @@ class LevelGenerator(arcade.View):
         self.end_type_time = None
         self.difficulty = difficulty
 
-        SOUND_HANDLER.update_sound_list([])  # add music here
-        SOUND_HANDLER.play_song()
+        MUSIC_HANDLER.update_music_list([])  # add music here
+        MUSIC_HANDLER.play_song()
 
 
     def on_draw(self):
