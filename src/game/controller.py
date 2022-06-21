@@ -65,13 +65,13 @@ class Controller:
                     5: game.levelGenerator.LevelGenerator(),
                     }
         if view in viewDict:
+            gameView = viewDict[view]
+            
             if view == 2:
-                gameView = viewDict[view]
                 gameView.setup(difficulty = difficulty)
                 director.window.show_view(gameView)
 
             elif view in viewDict.keys():
-                gameView = viewDict[view]
                 gameView.setup()
                 director.window.show_view(gameView)
 

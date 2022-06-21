@@ -10,6 +10,9 @@ class TrainingMenu(arcade.View):
     def setup(self):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
 
+        MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
+        MUSIC_HANDLER.play_song()
+
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
         self.vBox = arcade.gui.UIBoxLayout(vertical = True)

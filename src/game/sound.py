@@ -3,8 +3,8 @@
 from arcade import Sound
 import time
 
-DEFAULT_MUSIC_VOLUME = 0.2
-DEFAULT_SFX_VOLUME = 1
+DEFAULT_MUSIC_VOLUME = 0.5
+DEFAULT_SFX_VOLUME = 0.5
 MAX_ALLOWED_VOLUME = 3
 
 
@@ -23,6 +23,9 @@ class SoundHandler(Sound):
     def set_master_volume(self, new_volume_mod) -> None:
         self.master_volume = new_volume_mod
 
+    def _set_volume(self, volume, player) -> None:
+        """Do not call outside of class."""
+        return super().set_volume(volume, player)
 
     def get_stream_position(self, player) -> float:
         """Returns position in the sound file in seconds. Resets to 0.0 when sound finishes."""
@@ -45,16 +48,18 @@ class MusicHandler(SoundHandler):
         self.music_volume = self.music_volume_modifier + self.master_volume
         self.fade_rate = self.music_volume * 0.1
 
-    def update_music_volume(self) -> None:
-        new_music_volume = self.music_volume_modifier + SoundHandler.master_volume
+    def update_music_volume(self) -> float:
+        new_music_volume = self.music_volume_modifier + self.master_volume
         if new_music_volume > MAX_ALLOWED_VOLUME:
             self.music_volume = MAX_ALLOWED_VOLUME
         else:
             self.music_volume = new_music_volume
+        return self.music_volume
 
-    def set_music_volume(self, new_volume_mod) -> None:
+    def set_music_volume(self, new_volume_mod: float) -> None:
         self.music_volume_modifier = new_volume_mod
-        self.update_music_volume()
+        self._set_volume(self.update_music_volume(), self.current_player)
+        
 
     def update_music_list(self, music_list) -> None:
         """ Updates music list.
