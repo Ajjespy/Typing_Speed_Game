@@ -3,7 +3,7 @@
 from arcade import Sound
 import time
 
-DEFAULT_MUSIC_VOLUME = 0.2
+DEFAULT_MUSIC_VOLUME = 1
 DEFAULT_SFX_VOLUME = 1
 MAX_ALLOWED_VOLUME = 3
 
