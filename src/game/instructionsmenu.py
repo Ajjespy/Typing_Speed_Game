@@ -21,6 +21,7 @@ class InstructionsMenu(arcade.View):
         @backButton.event("on_click")
         def on_click_texture_button(event):
             controller.Controller.on_change_view(self, 0, difficulty = "TOP")
+            const.SFX_HANDLER.play_sfx()
         
         self.vBox.add(backButton.with_space_around(right = 80, left = 80))
 
