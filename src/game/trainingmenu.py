@@ -2,7 +2,6 @@ import arcade
 import game.controller as controller
 from game.constants import *
 import game.constants as const
-from game.sound import MusicHandler
 
 class TrainingMenu(arcade.View):
     def __init__(self):
@@ -57,6 +56,8 @@ class TrainingMenu(arcade.View):
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
+        MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
+        MUSIC_HANDLER.play_song()
 
     def on_draw(self):
         arcade.start_render()
