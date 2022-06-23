@@ -5,8 +5,8 @@ import game.controller
 from game.sound import SoundHandler
 import time
 from tkinter import VERTICAL
-
-
+from game.tumbleweed import Tumbleweed
+from random import randint
 
 
 class MainMenu(arcade.View):
@@ -16,6 +16,12 @@ class MainMenu(arcade.View):
         self.current_song_index = 0
         self.current_player = None
         self.music = None
+        self.tumbleweed_present = False
+        self.turn_speed = 75
+        self.tumbleweed_path_list = [5,2,1,0,-1,-2,-5]
+        self.tumblepoint = 0
+        self.next_y = 0
+        self.max_x = self.window.width
 
 
     def setup(self):
@@ -95,7 +101,7 @@ class MainMenu(arcade.View):
         self.manager.add(
             arcade.gui.UIPadding(
                 child=self.vBox,
-                bg_color=(0,0,0,75)
+                bg_color=(150,150,150)
             )
         )
 
@@ -104,13 +110,34 @@ class MainMenu(arcade.View):
         super().on_draw()
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+        if self.tumbleweed_present:
+            self.tumbleweed.draw()
         self.manager.draw()
 
 
     def on_update(self, delta_time: float):
-        return super().on_update(delta_time)
+        super().on_update(delta_time)
+
+        self.generate_tumbleweed()
+        if self.tumbleweed_present:
+            self.tumbleweed.update()
 
 
     def on_key_press(self, symbol: int, modifiers: int):
         game.controller.Controller.get_key_press(self, symbol)
     
+
+    def generate_tumbleweed(self):
+
+        tumble_chance = randint(0,500)
+
+        scale = self.max_x / 960
+
+        if self.tumbleweed_present == False:
+            if tumble_chance == 500:
+                self.tumbleweed = Tumbleweed(self.max_x + 300, (70 * scale), 0.5, self.tumbleweed_path_list, -3, 15, self.turn_speed)
+                self.tumbleweed_present = True
+        else:
+            if self.tumbleweed.center_x < -300:
+                self.tumbleweed = None
+                self.tumbleweed_present = False
