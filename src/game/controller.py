@@ -69,10 +69,14 @@ class Controller:
             
             if view == 2:
                 gameView.setup(difficulty = difficulty)
+                if director.buttons:
+                    director.destroyButtons()
                 director.window.show_view(gameView)
 
             elif view in viewDict.keys():
                 gameView.setup()
+                if director.buttons:
+                    director.destroyButtons()
                 director.window.show_view(gameView)
 
             else:

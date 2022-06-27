@@ -16,6 +16,7 @@ class MainMenu(arcade.View):
         self.current_song_index = 0
         self.current_player = None
         self.music = None
+        self.buttons = True
 
 
     def setup(self):
@@ -109,6 +110,9 @@ class MainMenu(arcade.View):
 
     def on_update(self, delta_time: float):
         return super().on_update(delta_time)
+
+    def destroyButtons(self):
+        self.manager.disable()
 
 
     def on_key_press(self, symbol: int, modifiers: int):

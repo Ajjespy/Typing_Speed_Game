@@ -10,6 +10,7 @@ class Training(arcade.View):
     def __init__(self):
         super().__init__()
         self.background = None
+        self.buttons = False
         
     def setup(self, difficulty = "ALL"):
         """
