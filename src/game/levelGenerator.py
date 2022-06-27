@@ -88,7 +88,6 @@ class LevelGenerator(arcade.View):
         if symbol == arcade.key.BACKSPACE:
             self.userType = self.userType[:-1]
             
-
     def on_key_release(self, symbol: int, modifiers: int):
         # lets controller know that a key has become unpressed
         game.controller.Controller.get_key_press(self, symbol, True)
