@@ -22,6 +22,8 @@ class MainMenu(arcade.View):
         self.tumblepoint = 0
         self.next_y = 0
         self.max_x = self.window.width
+        self.buttons = True
+
 
 
     def setup(self):
@@ -121,6 +123,9 @@ class MainMenu(arcade.View):
         self.generate_tumbleweed()
         if self.tumbleweed_present:
             self.tumbleweed.update()
+
+    def destroyButtons(self):
+        self.manager.disable()
 
 
     def on_key_press(self, symbol: int, modifiers: int):
