@@ -47,7 +47,6 @@ class MusicHandler(SoundHandler):
         self.current_sound_index = index
         self.music_volume_modifier = DEFAULT_MUSIC_VOLUME
         self.music_volume = self.music_volume_modifier + self.master_volume
-        self.desired_volume = self.music_volume
         self.fade_rate = 0.01
 
     def _update_music_volume(self) -> float:
@@ -70,30 +69,14 @@ class MusicHandler(SoundHandler):
                 loop (bool): if true the music will loop """
 
         if self.sound:  # Stops overlapping music. Cleans any old players.
-            # self.fade_out()
             self.stop(self.current_player)
             del self.current_player
 
         # Play the next song
         self.sound = Sound(song, streaming=True)
         self.current_player = self.sound.play(self.music_volume, loop=loop)
-        # self.fade_in()
         
         time.sleep(0.03)  # Small delay so the function doesn't skip a track
-
-
-    def fade_out(self) -> None:
-        """broken :("""
-        while self.music_volume > 0.05:
-            self.set_music_volume(self.fade_rate * -1)
-        return
-
-    def fade_in(self) -> None:
-        """broken :("""
-        while self.music_volume < 0.5:
-            self.set_music_volume(self.fade_rate)
-        return
-
 
 
 class SFXHandler(SoundHandler):
