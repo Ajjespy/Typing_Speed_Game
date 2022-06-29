@@ -18,6 +18,10 @@ class InstructionsMenu(arcade.View):
         self.Tim = arcade.Sprite(f"{const.RESOURCE_PATH}/enemy_sprites/Friendly Tim.png", 0.75)
         self.Tim.center_x = 150
         self.Tim.center_y = 150
+        r = randint(0,255)
+        g = randint(0,255)
+        b = randint(0,255)
+        self.Tim.color = (r,g,b)
         self.speach = """
         
         Howdy partner! It’s been a while since this here town has gotten any visitors just to let you know, this town has gotten a strange tradition for when we get visitors. We have a town-wide paintball fight!

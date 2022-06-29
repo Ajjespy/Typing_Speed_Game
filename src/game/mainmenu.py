@@ -22,7 +22,9 @@ class MainMenu(arcade.View):
         self.tumblepoint = 0
         self.next_y = 0
         self.max_x = self.window.width
+        self.max_y = self.window.width
         self.buttons = True
+        self.saloon_name = """High Noon Typing Saloon"""
 
 
 
@@ -112,6 +114,7 @@ class MainMenu(arcade.View):
         super().on_draw()
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+        arcade.draw_text(self.saloon_name, (self.max_x/2)-225, self.max_y/2, arcade.color.BLACK, 28, 425, "center", "Ultra")
         if self.tumbleweed_present:
             self.tumbleweed.draw()
         self.manager.draw()
