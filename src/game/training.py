@@ -25,7 +25,7 @@ class Training(arcade.View):
             else:
                 self.randomWord = RandomWord.get_word(randint(1, 8))
         else:
-            self.randomWord = RandomWord.get_random_chars(length = 12, row = difficulty)
+            self.randomWord = RandomWord.get_random_chars(length = 3, row = difficulty)
         self.userType = ""
         self.last_time = 0
         self.num_words = 0
@@ -100,6 +100,7 @@ class Training(arcade.View):
             # stat checker stuff
             self.end_type_time = time()
             self.last_time = self.end_type_time - self.start_type_time
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["ding"], 1.5)
 
             if self.difficulty == "ALL":
                 if randint(0, 1) == 1:

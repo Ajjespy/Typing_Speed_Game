@@ -4,8 +4,8 @@ from arcade import Sound
 import string
 import time
 
-DEFAULT_MUSIC_VOLUME = 0.5
-DEFAULT_SFX_VOLUME = 0.3
+DEFAULT_MUSIC_VOLUME = 0.4
+DEFAULT_SFX_VOLUME = 0.5
 MAX_ALLOWED_VOLUME = 3
 
 
@@ -16,10 +16,8 @@ class SoundHandler(Sound):
         self.master_volume = 1
         self.setup()
 
-
     def setup(self) -> None:
         pass
-
 
     def set_master_volume(self, new_volume_mod) -> None:
         self.master_volume = new_volume_mod
@@ -32,10 +30,10 @@ class SoundHandler(Sound):
         """Returns position in the sound file in seconds. Resets to 0.0 when sound finishes."""
         return super().get_stream_position(player)
 
-
     def stop(self, player) -> None:
         """Stops current sound player"""
         return super().stop(player)
+
 
 class MusicHandler(SoundHandler):
 
@@ -58,14 +56,14 @@ class MusicHandler(SoundHandler):
             self.music_volume = new_music_volume
         return self.music_volume
 
-    def set_music_volume(self, new_volume_mod:float) -> None:
+    def set_music_volume(self, new_volume_mod: float) -> None:
         self.music_volume_modifier = new_volume_mod
         self._set_volume(self._update_music_volume(), self.current_player)
-        
 
-    def play_song(self, song:string, loop:bool=True) -> None:
-        """ Parameters: 
+    def play_song(self, song: string, unique_volume_mod: float = 1, loop: bool = True) -> None:
+        """ Parameters:
                 song (string): filepath to the song
+                volume_mod(float): volume multiplier for the individual song
                 loop (bool): if true the music will loop """
 
         if self.sound:  # Stops overlapping music. Cleans any old players.
@@ -74,8 +72,8 @@ class MusicHandler(SoundHandler):
 
         # Play the next song
         self.sound = Sound(song, streaming=True)
-        self.current_player = self.sound.play(self.music_volume, loop=loop)
-        
+        self.current_player = self.sound.play(self.music_volume * unique_volume_mod, loop=loop)
+
         time.sleep(0.03)  # Small delay so the function doesn't skip a track
 
 
@@ -96,9 +94,11 @@ class SFXHandler(SoundHandler):
         self.music_volume_modifier = new_volume_mod
         self.update_sfx_volume()
 
-
-    def play_sfx(self, effect:string, loop:bool=False) -> None:
-        """ Plays song. """
+    def play_sfx(self, effect: string, unique_volume_mod: float = 1, loop: bool = False) -> None:
+        """ Parameters:
+                effect (string): filepath to the effect
+                volume_mod(float): volume multiplier for the individual effect
+                loop (bool): if true the effect will loop """
 
         if self.sound:  # Stops overlapping music. Cleans any old players.
             self.stop(self.current_player)
@@ -106,6 +106,6 @@ class SFXHandler(SoundHandler):
 
         # Play the next song
         self.sound = Sound(effect, streaming=True)
-        self.current_player = self.sound.play(self.sfx_volume, loop=loop)
+        self.current_player = self.sound.play(self.sfx_volume * unique_volume_mod, loop=loop)
         # Small delay so the function doesn't skip a track
         time.sleep(0.03)

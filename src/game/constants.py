@@ -21,6 +21,7 @@ MUSIC_DICT = {
 
 SFX_DICT = {
         "whoosh": f"{RESOURCE_PATH}sfx/whoosh-6316.mp3",
+        "ding": f"{RESOURCE_PATH}sfx/snd_elevator_power_down-37310.mp3",
 }
 
 convertLetters = dict()
