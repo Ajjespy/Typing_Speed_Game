@@ -11,9 +11,6 @@ class TrainingMenu(arcade.View):
     def setup(self):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
 
-        MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
-        MUSIC_HANDLER.play_song()
-
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
         self.vBox = arcade.gui.UIBoxLayout(vertical = True)
@@ -35,18 +32,22 @@ class TrainingMenu(arcade.View):
         @topButton.event("on_click")
         def on_click_texture_button(event):
             controller.Controller.on_change_view(self, 2, difficulty = "TOP")
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @middleButton.event("on_click")
         def on_click_texture_button(event):
             controller.Controller.on_change_view(self, 2, difficulty = "MIDDLE")
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @bottomButton.event("on_click")
         def on_click_texture_button(event):
             controller.Controller.on_change_view(self, 2, difficulty = "BOTTOM")
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @allButton.event("on_click")
         def on_click_texture_button(event):
             controller.Controller.on_change_view(self, 2, difficulty = "ALL")
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
         
         self.vBox.add(topButton.with_space_around(right = 80, left = 70))
         self.vBox.add(middleButton.with_space_around(right = 80, left = 80))
@@ -57,8 +58,7 @@ class TrainingMenu(arcade.View):
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
-        MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
-        MUSIC_HANDLER.play_song()
+        MUSIC_HANDLER.play_song(const.MUSIC_DICT["wind"])
 
     def on_draw(self):
         arcade.start_render()
