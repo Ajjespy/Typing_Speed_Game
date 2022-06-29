@@ -7,6 +7,7 @@ from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH
 class ScoreMenu(arcade.View):
     def __init__(self):
         super().__init__()
+        self.buttons = True
 
     def setup(self):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
@@ -43,6 +44,8 @@ class ScoreMenu(arcade.View):
     def on_update(self, delta_time: float):
         return super().on_update(delta_time)
 
+    def destroyButtons(self):
+        self.manager.disable()
 
     def on_key_press(self, symbol: int, modifiers: int):
         controller.Controller.get_key_press(self, symbol = symbol, modifier = modifiers)
