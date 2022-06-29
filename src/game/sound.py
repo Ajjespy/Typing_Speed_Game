@@ -1,10 +1,11 @@
 """THIS IS A WORK IN PROGRESS"""
 # TODO fade music on transitions, SFX, etc.
 from arcade import Sound
+import string
 import time
 
 DEFAULT_MUSIC_VOLUME = 0.5
-DEFAULT_SFX_VOLUME = 0.5
+DEFAULT_SFX_VOLUME = 0.3
 MAX_ALLOWED_VOLUME = 3
 
 
@@ -24,7 +25,7 @@ class SoundHandler(Sound):
         self.master_volume = new_volume_mod
 
     def _set_volume(self, volume, player) -> None:
-        """Do not call outside of class."""
+        """Private: Do not call outside of class."""
         return super().set_volume(volume, player)
 
     def get_stream_position(self, player) -> float:
@@ -46,9 +47,11 @@ class MusicHandler(SoundHandler):
         self.current_sound_index = index
         self.music_volume_modifier = DEFAULT_MUSIC_VOLUME
         self.music_volume = self.music_volume_modifier + self.master_volume
-        self.fade_rate = self.music_volume * 0.1
+        self.desired_volume = self.music_volume
+        self.fade_rate = 0.01
 
-    def update_music_volume(self) -> float:
+    def _update_music_volume(self) -> float:
+        """Private: Do not call outside of class"""
         new_music_volume = self.music_volume_modifier + self.master_volume
         if new_music_volume > MAX_ALLOWED_VOLUME:
             self.music_volume = MAX_ALLOWED_VOLUME
@@ -56,40 +59,41 @@ class MusicHandler(SoundHandler):
             self.music_volume = new_music_volume
         return self.music_volume
 
-    def set_music_volume(self, new_volume_mod: float) -> None:
+    def set_music_volume(self, new_volume_mod:float) -> None:
         self.music_volume_modifier = new_volume_mod
-        self._set_volume(self.update_music_volume(), self.current_player)
+        self._set_volume(self._update_music_volume(), self.current_player)
         
 
-    def update_music_list(self, music_list) -> None:
-        """ Updates music list.
-            Parameters: 
-                music_list (list): list of file paths to sound files"""
-        self.music_list = music_list
-
-    def advance_song(self) -> None:
-        """Advance our pointer to the next song in self.music_list. Not used when music loops."""
-        self.current_sound_index += 1
-        if self.current_sound_index >= len(self._list):
-            self.current_sound_index = 0
-
-
-    def play_song(self, loop=True) -> None:
-        """ Plays song. """
-
-        if not len(self.music_list):  # Stops player if self.music_list is empty
-            self.stop(self.current_player)
-            return
+    def play_song(self, song:string, loop:bool=True) -> None:
+        """ Parameters: 
+                song (string): filepath to the song
+                loop (bool): if true the music will loop """
 
         if self.sound:  # Stops overlapping music. Cleans any old players.
+            # self.fade_out()
             self.stop(self.current_player)
             del self.current_player
 
         # Play the next song
-        self.sound = Sound(self.music_list[self.current_sound_index], streaming=True)
+        self.sound = Sound(song, streaming=True)
         self.current_player = self.sound.play(self.music_volume, loop=loop)
-        # Small delay so the function doesn't skip a track
-        time.sleep(0.03)
+        # self.fade_in()
+        
+        time.sleep(0.03)  # Small delay so the function doesn't skip a track
+
+
+    def fade_out(self) -> None:
+        """broken :("""
+        while self.music_volume > 0.05:
+            self.set_music_volume(self.fade_rate * -1)
+        return
+
+    def fade_in(self) -> None:
+        """broken :("""
+        while self.music_volume < 0.5:
+            self.set_music_volume(self.fade_rate)
+        return
+
 
 
 class SFXHandler(SoundHandler):
@@ -110,32 +114,15 @@ class SFXHandler(SoundHandler):
         self.update_sfx_volume()
 
 
-    def update_sfx_list(self, sfx_list) -> None:
-        """ Updates sfx list.
-            Parameters: 
-                sfx_list (list): list of file paths to sound files"""
-        self.sfx_list = sfx_list
-
-    def select_sfx(self, index):
-        """Select sfx by index in sfx_list"""
-        if index not in self.sfx_list:
-            raise ValueError
-        self.current_sfx_index = index
-
-
-    def play_sfx(self, loop=False) -> None:
+    def play_sfx(self, effect:string, loop:bool=False) -> None:
         """ Plays song. """
-
-        if not len(self.sfx_list):  # Stops player if self.music_list is empty
-            self.stop(self.current_player)
-            return
 
         if self.sound:  # Stops overlapping music. Cleans any old players.
             self.stop(self.current_player)
             del self.current_player
 
         # Play the next song
-        self.sound = Sound(self.sfx_list[self.current_sfx_index], streaming=True)
+        self.sound = Sound(effect, streaming=True)
         self.current_player = self.sound.play(self.sfx_volume, loop=loop)
         # Small delay so the function doesn't skip a track
         time.sleep(0.03)

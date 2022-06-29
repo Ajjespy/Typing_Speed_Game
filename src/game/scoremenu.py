@@ -22,7 +22,7 @@ class ScoreMenu(arcade.View):
         @backButton.event("on_click")
         def on_click_texture_button(event):
             controller.Controller.on_change_view(self, 0,)
-            const.SFX_HANDLER.play_sfx()
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
         
         self.vBox.add(backButton.with_space_around(right = 80, left = 80))
 
@@ -30,8 +30,7 @@ class ScoreMenu(arcade.View):
 
         self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
-        const.MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}/music/a-gentle-breeze-wind-4-14681.mp3",])  # add music here
-        const.MUSIC_HANDLER.play_song()
+        const.MUSIC_HANDLER.play_song(const.MUSIC_DICT["wind"])
 
 
     def on_draw(self):

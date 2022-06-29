@@ -50,40 +50,38 @@ class MainMenu(arcade.View):
         instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
         quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
 
-        const.MUSIC_HANDLER.update_music_list([f"{const.RESOURCE_PATH}music/307-HiddenVillage.mp3",])
-        const.MUSIC_HANDLER.play_song()
-        const.SFX_HANDLER.update_sfx_list([f"{const.RESOURCE_PATH}/sfx/whoosh-6316.mp3",])
+        # const.MUSIC_HANDLER.update_music_list([])
+        const.MUSIC_HANDLER.play_song(const.MUSIC_DICT["main_theme"], loop=True)
 
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
             game.controller.Controller.on_change_view(self, 1)
             #print("learn Button pressed", event)
-            const.SFX_HANDLER.play_sfx()
-
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @gameButton.event("on_click")
         def on_click_texture_button(event):
             game.controller.Controller.on_change_view(self, 5)
             # print("game Button pressed", event)
-            const.SFX_HANDLER.play_sfx()
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @scoresButton.event("on_click")
         def on_click_texture_button(event):
             game.controller.Controller.on_change_view(self, 3)
             # print("scores Button pressed", event)
-            const.SFX_HANDLER.play_sfx()
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @instructionButton.event("on_click")
         def on_click_texture_button(event):
             game.controller.Controller.on_change_view(self, 4)
             # print("instruction Button pressed", event)
-            const.SFX_HANDLER.play_sfx()
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
         @quitButton.event("on_click")
         def on_click_texture_button(event):
             arcade.exit()
-            const.SFX_HANDLER.play_sfx()
+            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
 
 
         self.vBox.add(instructionButton.with_space_around(right=80))
