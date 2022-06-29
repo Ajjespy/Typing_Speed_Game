@@ -3,11 +3,34 @@ import arcade.gui
 import game.constants as const
 import game.controller as controller
 from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH
+from random import randint
+from game.tumbleweed import Tumbleweed
 
 class InstructionsMenu(arcade.View):
     def __init__(self):
         super().__init__()
         self.buttons = True
+        self.max_x = self.window.width
+        self.max_y = self.window.height
+        self.tumbleweed_present = False
+        self.turn_speed = -75
+        self.tumbleweed_path_list = [2,0.5,0.25,0,-0.25,-0.5,-2]
+        self.Tim = arcade.Sprite(f"{const.RESOURCE_PATH}/enemy_sprites/Friendly Tim.png", 0.75)
+        self.Tim.center_x = 150
+        self.Tim.center_y = 150
+        r = randint(0,255)
+        g = randint(0,255)
+        b = randint(0,255)
+        self.Tim.color = (r,g,b)
+        self.speach = """
+        
+        Howdy partner! It’s been a while since this here town has gotten any visitors just to let you know, this town has gotten a strange tradition for when we get visitors. We have a town-wide paintball fight!
+
+Here have one of our special model paintball guns. The gunsmith calls this one “The Keyboard”. If you are unfamiliar with how “The Keyboard” works, you should go down to that there shooting range to LEARN how to work that gun. It would be a shame if you didn’t know how to work your gun when the GAME begins.
+
+After practicing and participating in the town paintball match, there will be a SCORE board you can check out. Can you be the rootinest tootinest cowboy this town has ever seen?
+
+        """
 
     def setup(self):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
@@ -38,10 +61,31 @@ class InstructionsMenu(arcade.View):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.manager.draw()
-        arcade.draw_text(f"This is a placeholder for the instructions menu.", SCREEN_WIDTH / 2, SCREEN_HEIGHT, arcade.color.BLACK, 44, 500, "center", "Ultra")  # TODO Create actual instructions.
+        arcade.draw_text(self.speach, 0, self.max_y, arcade.color.BLACK, 24, self.max_x, "center", "Ultra")  # TODO Create actual instructions.
+        self.Tim.draw()
+        if self.tumbleweed_present:
+            self.tumbleweed.draw()
 
     def on_update(self, delta_time: float):
-        return super().on_update(delta_time)
+        super().on_update(delta_time)
+        self.generate_tumbleweed()
+        if self.tumbleweed_present:
+            self.tumbleweed.update()
+
+    def generate_tumbleweed(self):
+
+        tumble_chance = randint(0,500)
+
+        scale = self.max_x / 960
+
+        if self.tumbleweed_present == False:
+            if tumble_chance == 500:
+                self.tumbleweed = Tumbleweed(0, (25 * scale), 0.25, self.tumbleweed_path_list, 3, 15, self.turn_speed)
+                self.tumbleweed_present = True
+        else:
+            if self.tumbleweed.center_x > self.max_x + 300:
+                self.tumbleweed = None
+                self.tumbleweed_present = False
 
     def destroyButtons(self):
         self.manager.disable()
