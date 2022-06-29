@@ -13,7 +13,7 @@ class SoundHandler(Sound):
     """Plays and modifies SFX and music"""
 
     def __init__(self) -> None:
-        self.master_volume = 0
+        self.master_volume = 1
         self.setup()
 
 
