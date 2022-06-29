@@ -25,7 +25,7 @@ class Training(arcade.View):
             else:
                 self.randomWord = RandomWord.get_word(randint(1, 8))
         else:
-            self.randomWord = RandomWord.get_random_chars(length = 3, row = difficulty)
+            self.randomWord = RandomWord.get_random_chars(length = 12, row = difficulty)
         self.userType = ""
         self.last_time = 0
         self.num_words = 0
