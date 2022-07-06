@@ -62,7 +62,7 @@ class Controller:
                     2: game.training.Training(),
                     3: game.scoremenu.ScoreMenu(),
                     4: game.instructionsmenu.InstructionsMenu(),
-                    5: game.levelGenerator.LevelGenerator(),
+                    5: game.levelGenerator.LevelGenerator()
                     }
         if view in viewDict:
             gameView = viewDict[view]
