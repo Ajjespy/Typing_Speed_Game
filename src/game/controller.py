@@ -45,7 +45,7 @@ def get_key_press(director, symbol, unpress = False, modifier = None):
         arcade.exit()
 
     if (symbol == arcade.key.DELETE):
-        Controller.on_change_view(director, 0)
+        on_change_view(director, 0)
     
 
 def on_change_view(director, view, difficulty = "ALL"):

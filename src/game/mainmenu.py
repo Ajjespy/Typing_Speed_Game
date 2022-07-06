@@ -1,4 +1,4 @@
-from arcade import load_texture, start_render, gui, exit, draw_text, draw_lrwh_rectangle_textured, View
+from arcade import load_texture, start_render, gui, exit, draw_text, draw_lrwh_rectangle_textured, View, color
 from game.constants import RESOURCE_PATH, MUSIC_DICT, MUSIC_HANDLER, SFX_DICT, SFX_HANDLER
 import game.controller as controller
 from game.tumbleweed import Tumbleweed

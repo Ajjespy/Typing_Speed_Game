@@ -1,4 +1,4 @@
-from arcade import load_texture, SpriteList, Sprite, View, start_render, draw_text, draw_lrwh_rectangle_textured, key
+from arcade import load_texture, SpriteList, Sprite, View, start_render, draw_text, draw_lrwh_rectangle_textured, key, color
 import game.controller as controller
 from game.constants import RESOURCE_PATH, SCREEN_WIDTH, MUSIC_HANDLER, MUSIC_DICT, SFX_DICT, SFX_HANDLER
 from game.random_word import RandomWord
