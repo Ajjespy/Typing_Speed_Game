@@ -1,4 +1,4 @@
-iimport arcade
+import arcade
 from game.constants import RESOURCE_PATH, convertLetters
 import game.trainingmenu
 import game.training

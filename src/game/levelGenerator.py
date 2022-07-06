@@ -57,7 +57,7 @@ class LevelGenerator(arcade.View):
             self.start_type_time = None
 
     def on_key_press(self, symbol: int, modifiers: int):
-        game.controller.Controller.get_key_press(self, symbol)
+        game.controller.get_key_press(self, symbol)
         if symbol > 96 and symbol < 123:
             # basic stat checker will be finished in stat checker file
             if self.end_type_time == None and self.start_type_time == None:
@@ -77,7 +77,7 @@ class LevelGenerator(arcade.View):
             
     def on_key_release(self, symbol: int, modifiers: int):
         # lets controller know that a key has become unpressed
-        game.controller.Controller.get_key_press(self, symbol, True)
+        game.controller.get_key_press(self, symbol, True)
 
     def add_enemy(self, enemy_name, size, word):
         enemy = Enemy(enemy_name, size, word)
