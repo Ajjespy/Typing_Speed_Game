@@ -21,7 +21,7 @@ class ScoreMenu(arcade.View):
         
         @backButton.event("on_click")
         def on_click_texture_button(event):
-            controller.Controller.on_change_view(self, 0,)
+            controller.on_change_view(self, 0,)
             const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
         
         self.vBox.add(backButton.with_space_around(right = 80, left = 80))
@@ -47,4 +47,4 @@ class ScoreMenu(arcade.View):
         self.manager.disable()
 
     def on_key_press(self, symbol: int, modifiers: int):
-        controller.Controller.get_key_press(self, symbol = symbol, modifier = modifiers)
+        controller.get_key_press(self, symbol = symbol, modifier = modifiers)
