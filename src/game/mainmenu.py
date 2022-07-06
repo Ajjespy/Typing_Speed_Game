@@ -1,15 +1,11 @@
-import arcade
-import arcade.gui
-import game.constants as const
-import game.controller
-from game.sound import SoundHandler
-import time
-from tkinter import VERTICAL
+from arcade import load_texture, start_render, gui, exit, draw_text, draw_lrwh_rectangle_textured, View
+from game.constants import RESOURCE_PATH, MUSIC_DICT, MUSIC_HANDLER, SFX_DICT, SFX_HANDLER
+import game.controller as controller
 from game.tumbleweed import Tumbleweed
 from random import randint
 
 
-class MainMenu(arcade.View):
+class MainMenu(View):
     def __init__(self):
         super().__init__()
         self.music_list = []
@@ -29,61 +25,61 @@ class MainMenu(arcade.View):
 
 
     def setup(self):
-        self.manager = arcade.gui.UIManager()
+        self.manager = gui.UIManager()
         self.manager.enable()
-        self.vBox = arcade.gui.UIBoxLayout(vertical=False)
+        self.vBox = gui.UIBoxLayout(vertical=False)
 
-        self.background = arcade.load_texture(f"{const.RESOURCE_PATH}TitleScreen.png")
+        self.background = load_texture(f"{RESOURCE_PATH}TitleScreen.png")
 
-        textureLearn = arcade.load_texture(f"{const.RESOURCE_PATH}LearnButton.png")
-        textureLearnHovered = arcade.load_texture(f"{const.RESOURCE_PATH}LearnButtonHovered.png")
-        textureGame = arcade.load_texture(f"{const.RESOURCE_PATH}GameButton.png")
-        textureGameHovered = arcade.load_texture(f"{const.RESOURCE_PATH}GameButtonHovered.png")
-        textureScores = arcade.load_texture(f"{const.RESOURCE_PATH}ScoresButton.png")
-        textureScoresHovered = arcade.load_texture(f"{const.RESOURCE_PATH}ScoresButtonHovered.png")
-        textureInstructions = arcade.load_texture(f"{const.RESOURCE_PATH}InstructionsButton.png")
-        textureInstructionsHovered = arcade.load_texture(f"{const.RESOURCE_PATH}InstructionsButtonHovered.png")
-        textureQuit = arcade.load_texture(f"{const.RESOURCE_PATH}QuitButton.png")
-        textureQuitHovered = arcade.load_texture(f"{const.RESOURCE_PATH}QuitButtonHovered.png")
+        textureLearn = load_texture(f"{RESOURCE_PATH}LearnButton.png")
+        textureLearnHovered = load_texture(f"{RESOURCE_PATH}LearnButtonHovered.png")
+        textureGame = load_texture(f"{RESOURCE_PATH}GameButton.png")
+        textureGameHovered = load_texture(f"{RESOURCE_PATH}GameButtonHovered.png")
+        textureScores = load_texture(f"{RESOURCE_PATH}ScoresButton.png")
+        textureScoresHovered = load_texture(f"{RESOURCE_PATH}ScoresButtonHovered.png")
+        textureInstructions = load_texture(f"{RESOURCE_PATH}InstructionsButton.png")
+        textureInstructionsHovered = load_texture(f"{RESOURCE_PATH}InstructionsButtonHovered.png")
+        textureQuit = load_texture(f"{RESOURCE_PATH}QuitButton.png")
+        textureQuitHovered = load_texture(f"{RESOURCE_PATH}QuitButtonHovered.png")
 
-        learnButton = arcade.gui.UITextureButton(texture=textureLearn,texture_hovered=textureLearnHovered, scale= 0.5)
-        gameButton = arcade.gui.UITextureButton(texture=textureGame,texture_hovered=textureGameHovered, scale= 0.5)
-        scoresButton = arcade.gui.UITextureButton(texture=textureScores,texture_hovered=textureScoresHovered, scale= 0.5)
-        instructionButton = arcade.gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
-        quitButton = arcade.gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
+        learnButton = gui.UITextureButton(texture=textureLearn,texture_hovered=textureLearnHovered, scale= 0.5)
+        gameButton = gui.UITextureButton(texture=textureGame,texture_hovered=textureGameHovered, scale= 0.5)
+        scoresButton = gui.UITextureButton(texture=textureScores,texture_hovered=textureScoresHovered, scale= 0.5)
+        instructionButton = gui.UITextureButton(texture=textureInstructions,texture_hovered=textureInstructionsHovered, scale= 0.5)
+        quitButton = gui.UITextureButton(texture=textureQuit,texture_hovered=textureQuitHovered, scale= 0.5)
 
-        # const.MUSIC_HANDLER.update_music_list([])
-        const.MUSIC_HANDLER.play_song(const.MUSIC_DICT["main_theme"], loop=True)
+        # MUSIC_HANDLER.update_music_list([])
+        MUSIC_HANDLER.play_song(MUSIC_DICT["main_theme"], loop=True)
 
 
         @learnButton.event("on_click")
         def on_click_texture_button(event):
-            game.controller.Controller.on_change_view(self, 1)
+            controller.on_change_view(self, 1)
             #print("learn Button pressed", event)
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
+            SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
 
         @gameButton.event("on_click")
         def on_click_texture_button(event):
-            game.controller.Controller.on_change_view(self, 5)
+            controller.on_change_view(self, 5)
             # print("game Button pressed", event)
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
+            SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
 
         @scoresButton.event("on_click")
         def on_click_texture_button(event):
-            game.controller.Controller.on_change_view(self, 3)
+            controller.on_change_view(self, 3)
             # print("scores Button pressed", event)
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
+            SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
 
         @instructionButton.event("on_click")
         def on_click_texture_button(event):
-            game.controller.Controller.on_change_view(self, 4)
+            controller.on_change_view(self, 4)
             # print("instruction Button pressed", event)
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
+            SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
 
         @quitButton.event("on_click")
         def on_click_texture_button(event):
-            arcade.exit()
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
+            exit()
+            SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
 
 
         self.vBox.add(instructionButton.with_space_around(right=80))
@@ -93,7 +89,7 @@ class MainMenu(arcade.View):
         self.vBox.add(quitButton)
 
         self.manager.add(
-            arcade.gui.UIAnchorWidget(
+            gui.UIAnchorWidget(
                 anchor_x="center",
                 anchor_y="bottom",
                 child=self.vBox
@@ -101,7 +97,7 @@ class MainMenu(arcade.View):
         )
 
         self.manager.add(
-            arcade.gui.UIPadding(
+            gui.UIPadding(
                 child=self.vBox,
                 bg_color=(150,150,150)
             )
@@ -110,9 +106,9 @@ class MainMenu(arcade.View):
 
     def on_draw(self):
         super().on_draw()
-        arcade.start_render()
-        arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
-        arcade.draw_text(self.saloon_name, (self.max_x/2)-225, self.max_y - 75, arcade.color.BLACK, 28, 425, "center", "Ultra")
+        start_render()
+        draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+        draw_text(self.saloon_name, (self.max_x/2)-225, self.max_y - 75, color.BLACK, 28, 425, "center", "Ultra")
         if self.tumbleweed_present:
             self.tumbleweed.draw()
         self.manager.draw()
@@ -130,7 +126,7 @@ class MainMenu(arcade.View):
 
 
     def on_key_press(self, symbol: int, modifiers: int):
-        game.controller.Controller.get_key_press(self, symbol)
+        controller.get_key_press(self, symbol)
     
 
     def generate_tumbleweed(self):

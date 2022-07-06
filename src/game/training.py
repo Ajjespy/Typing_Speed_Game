@@ -1,12 +1,11 @@
-import arcade
-import game.controller
-from game.constants import RESOURCE_PATH, FONT, SCREEN_HEIGHT, SCREEN_WIDTH, MUSIC_HANDLER
-import game.constants as const
+from arcade import load_texture, SpriteList, Sprite, View, start_render, draw_text, draw_lrwh_rectangle_textured, key
+import game.controller as controller
+from game.constants import RESOURCE_PATH, SCREEN_WIDTH, MUSIC_HANDLER, MUSIC_DICT, SFX_DICT, SFX_HANDLER
 from game.random_word import RandomWord
 from time import time
 from random import randint
 
-class Training(arcade.View):
+class Training(View):
     def __init__(self):
         super().__init__()
         self.background = None
@@ -16,8 +15,8 @@ class Training(arcade.View):
         """
         Runs before the view is changed used for resetting the view without deleting the object
         """
-        self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
-        self.keyboard_sprites = arcade.SpriteList(use_spatial_hash = False)
+        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.keyboard_sprites = SpriteList(use_spatial_hash = False)
         self.create_keyboard_sprites()
         if difficulty == "ALL":
             if randint(0, 1) == 1:
@@ -33,7 +32,7 @@ class Training(arcade.View):
         self.end_type_time = None
         self.difficulty = difficulty
 
-        MUSIC_HANDLER.play_song(const.MUSIC_DICT["saloon_honkey_tonk"])
+        MUSIC_HANDLER.play_song(MUSIC_DICT["saloon_honkey_tonk"])
 
     def create_keyboard_sprites(self):
         """
@@ -41,7 +40,7 @@ class Training(arcade.View):
         """
         # Code to display the numbers for the onscreen keyboard currently not in use so commented out
         # for i in range(1, 11):
-        #     new_sprite = arcade.Sprite(f"{RESOURCE_PATH}keys_unpressed/{i % 10}_Key_Dark.png", 1)
+        #     new_sprite = Sprite(f"{RESOURCE_PATH}keys_unpressed/{i % 10}_Key_Dark.png", 1)
         #     new_sprite.center_x = self.window.width / 4 + (i-1) * 72
         #     new_sprite.center_y = self.window.height / 2
         #     self.keyboard_sprites.append(new_sprite)
@@ -52,7 +51,7 @@ class Training(arcade.View):
 
         #Creates the sprites or A-Z and positions them on screen
         for letter in letters_keyboard_order:
-            new_sprite = arcade.Sprite(f"{RESOURCE_PATH}keys_unpressed/{letter}_Key_Dark.png", 1)
+            new_sprite = Sprite(f"{RESOURCE_PATH}keys_unpressed/{letter}_Key_Dark.png", 1)
             if i < 5:
                 new_sprite.center_x = self.window.width / 2 - abs(i - 4) * 72
                 new_sprite.center_y = self.window.height / 2 - 72 * 2
@@ -75,7 +74,7 @@ class Training(arcade.View):
             del new_sprite
             i += 1
         #Shift Sprite
-        new_sprite = arcade.Sprite(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png", 1.46)
+        new_sprite = Sprite(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png", 1.46)
         new_sprite.center_x = self.window.width / 2 - 4 * 72
         new_sprite.center_y = self.window.height / 2 - 72 * 4
         self.keyboard_sprites.append(new_sprite)
@@ -84,14 +83,14 @@ class Training(arcade.View):
 
     def on_draw(self):
         super().on_draw()
-        arcade.start_render()
+        start_render()
         # background gets drawn first
-        arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+        draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.keyboard_sprites.draw()
-        arcade.draw_text(self.randomWord, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 48, arcade.color.RED, 44, 400, "left", font_name="Ultra")
-        arcade.draw_text(self.userType, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 200, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
-        arcade.draw_text(f"Sec: {int(self.last_time)}", self.window.width - 400, self.window.height - 48, arcade.color.GREEN, 44, 500, "center", "Ultra")  
-        arcade.draw_text(f"Words: {self.num_words}", self.window.width - 450, self.window.height - 100, arcade.color.GREEN, 44, 500, "center", "Ultra")
+        draw_text(self.randomWord, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 48, color.RED, 44, 400, "left", font_name="Ultra")
+        draw_text(self.userType, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 200, color.BLUE, 44, 400, "left", font_name="Ultra")
+        draw_text(f"Sec: {int(self.last_time)}", self.window.width - 400, self.window.height - 48, color.GREEN, 44, 500, "center", "Ultra")  
+        draw_text(f"Words: {self.num_words}", self.window.width - 450, self.window.height - 100, color.GREEN, 44, 500, "center", "Ultra")
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
@@ -100,7 +99,7 @@ class Training(arcade.View):
             # stat checker stuff
             self.end_type_time = time()
             self.last_time = self.end_type_time - self.start_type_time
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["ding"], 1.5)
+            SFX_HANDLER.play_sfx(SFX_DICT["ding"], 1.5)
 
             if self.difficulty == "ALL":
                 if randint(0, 1) == 1:
@@ -122,7 +121,7 @@ class Training(arcade.View):
             self.start_type_time = None
 
     def on_key_press(self, symbol: int, modifiers: int):
-        game.controller.Controller.get_key_press(self, symbol)
+        controller.get_key_press(self, symbol)
         if symbol > 96 and symbol < 123:
             # basic stat checker will be finished in stat checker file
             if self.end_type_time == None and self.start_type_time == None:
@@ -133,12 +132,12 @@ class Training(arcade.View):
                 self.userType = self.userType + chr(symbol).upper()
             else:
                 self.userType = self.userType + chr(symbol)
-        if symbol == arcade.key.BACKSPACE:
+        if symbol == key.BACKSPACE:
             self.userType = self.userType[:-1]
 
     def on_key_release(self, symbol: int, modifiers: int):
         # lets controller know that a key has become unpressed
-        game.controller.Controller.get_key_press(self, symbol, True)
+        controller.get_key_press(self, symbol, True)
 
     def on_resize(self, width: int, height: int):
         """
