@@ -1,9 +1,5 @@
-import arcade
+iimport arcade
 from game.constants import RESOURCE_PATH, convertLetters
-#from game.game import game
-#from game.training import Training
-#from game.scores import scores
-#from game.instructions import instructions
 import game.trainingmenu
 import game.training
 import game.mainmenu
@@ -79,33 +75,6 @@ def on_change_view(director, view, difficulty = "ALL"):
                 director.destroyButtons()
             director.window.show_view(gameView)
 
-<<<<<<< HEAD
-        viewDict = {
-                    0: game.mainmenu.MainMenu(),
-                    1: game.trainingmenu.TrainingMenu(),
-                    2: game.training.Training(),
-                    3: game.scoremenu.ScoreMenu(),
-                    4: game.instructionsmenu.InstructionsMenu(),
-                    5: game.levelGenerator.LevelGenerator()
-                    }
-        if view in viewDict:
-            gameView = viewDict[view]
-            
-            if view == 2:
-                gameView.setup(difficulty = difficulty)
-                if director.buttons:
-                    director.destroyButtons()
-                director.window.show_view(gameView)
-
-            elif view in viewDict.keys():
-                gameView.setup()
-                if director.buttons:
-                    director.destroyButtons()
-                director.window.show_view(gameView)
-
-            else:
-                director.window.close_window()
-=======
         else:
             director.window.close_window()
->>>>>>> 46f36112ba869563ae49f4aee55978c58f25f144
+
