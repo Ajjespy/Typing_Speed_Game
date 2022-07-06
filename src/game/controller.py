@@ -1,9 +1,5 @@
-import arcade
+iimport arcade
 from game.constants import RESOURCE_PATH, convertLetters
-#from game.game import game
-#from game.training import Training
-#from game.scores import scores
-#from game.instructions import instructions
 import game.trainingmenu
 import game.training
 import game.mainmenu
@@ -81,3 +77,4 @@ def on_change_view(director, view, difficulty = "ALL"):
 
         else:
             director.window.close_window()
+
