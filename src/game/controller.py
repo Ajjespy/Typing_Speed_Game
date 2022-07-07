@@ -1,6 +1,7 @@
 import arcade
 from game.constants import RESOURCE_PATH, convertLetters
 import game.trainingmenu
+import game.traininginstructions
 import game.training
 import game.mainmenu
 import game.scoremenu
@@ -44,27 +45,35 @@ def get_key_press(director, symbol, unpress = False, modifier = None):
         on_change_view(director, 0)
     
 
-def on_change_view(director, view, difficulty = "ALL"):
+def on_change_view(director, view, difficulty = "ALL", stat_tracker = None):
     """
     This method will change which window the user is looking at.
     Args:
     director - Window
-    view - int {0: MainMenu(), 1 : TrainingMenu(), 2: Training, 3 : game(), 4 : scores(), 5 : instructions(), 6 : quit}
+    view - int {0: MainMenu(), 1: TrainingInstructions(), 2: Training(), 3: ScoreMenu(), 4: InstructionsMenu(), 5: LevelGenerator(), 6: TrainingMenu()}
     """
 
     viewDict = {
                 0: game.mainmenu.MainMenu(),
-                1: game.trainingmenu.TrainingMenu(),
+                1: game.traininginstructions.TrainingInstructions(),
                 2: game.training.Training(),
                 3: game.scoremenu.ScoreMenu(),
                 4: game.instructionsmenu.InstructionsMenu(),
                 5: game.levelGenerator.LevelGenerator(),
+                6: game.trainingmenu.TrainingMenu()
                 }
+                
     if view in viewDict:
         gameView = viewDict[view]
         
         if view == 2:
             gameView.setup(difficulty = difficulty)
+            if director.buttons:
+                director.destroyButtons()
+            director.window.show_view(gameView)
+
+        if view == 3:
+            gameView.setup(stat_tracker)
             if director.buttons:
                 director.destroyButtons()
             director.window.show_view(gameView)
