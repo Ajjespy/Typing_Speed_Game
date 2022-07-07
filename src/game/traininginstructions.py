@@ -8,9 +8,9 @@ class TrainingInstructions(arcade.View):
         super().__init__()
         self.buttons = True
 
-    def setup(self, difficulty = "TOP"):
+    def setup(self, difficulty1 = "TOP"):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
-        self.difficulty = difficulty
+        self.difficulty = difficulty1
 
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
@@ -23,7 +23,7 @@ class TrainingInstructions(arcade.View):
 
         @nextButton.event("on_click")
         def on_click_texture_button(event):
-            controller.on_change_view(self, 6, difficulty = self.difficulty)
+            controller.on_change_view(self, 6)
             SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
 
         self.vBox.add(nextButton.with_space_around(right = 80, left = 80))

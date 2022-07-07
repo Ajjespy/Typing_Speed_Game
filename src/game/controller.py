@@ -72,7 +72,7 @@ def on_change_view(director, view, difficulty = "ALL", stat_tracker = None):
                 director.destroyButtons()
             director.window.show_view(gameView)
 
-        if view == 3:
+        elif view == 3:
             gameView.setup(stat_tracker)
             if director.buttons:
                 director.destroyButtons()
