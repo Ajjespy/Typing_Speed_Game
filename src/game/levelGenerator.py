@@ -19,15 +19,16 @@ class LevelGenerator(arcade.View):
         Runs before the view is changed used for resetting the view without deleting the object
         """
         self.background = arcade.load_texture(f"{RESOURCE_PATH}ShootZone.png")
- 
-        # add enemies
-        self.add_enemy(self.enemy_names_list[0], .5, RandomWord.get_word(randint(1, 8)))
             
         self.userType = ""
         self.last_time = 0
         self.num_words = 0
         self.start_type_time = None
         self.end_type_time = None
+
+        # add first enemy
+        if self.num_words == 0:
+            self.add_enemy(self.enemy_names_list[0], .5, RandomWord.get_word(randint(1, 8)), 0)
 
         MUSIC_HANDLER.play_song(MUSIC_DICT["wind"])  # add music here
 
@@ -38,7 +39,7 @@ class LevelGenerator(arcade.View):
         # background gets drawn first
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
 
-        arcade.draw_text(self.userType, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 200, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
+        arcade.draw_text(self.userType, self.window.width / 2 - 44 * 5.5, 125, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
         arcade.draw_text(f"Sec: {int(self.last_time)}", self.window.width - 400, self.window.height - 48, arcade.color.GREEN, 44, 500, "center", "Ultra")  
         arcade.draw_text(f"Words: {self.num_words}", self.window.width - 450, self.window.height - 100, arcade.color.GREEN, 44, 500, "center", "Ultra")
 
@@ -56,6 +57,12 @@ class LevelGenerator(arcade.View):
         if not (self.start_type_time == None or self.end_type_time == None):
             self.end_type_time = None
             self.start_type_time = None
+        
+        # add more ememies based on number of words user has typed
+        if self.num_words == 1:
+            self.add_enemy(self.enemy_names_list[1], .75, RandomWord.get_word(randint(1, 8)), 1)
+        elif self.num_words >= 2:
+            self.add_enemy(self.enemy_names_list[randint(0, len(self.enemy_names_list))], .75, RandomWord.get_word(randint(1, 8)), randint(0,2))
 
     def on_key_press(self, symbol: int, modifiers: int):
         game.controller.get_key_press(self, symbol)
@@ -80,12 +87,13 @@ class LevelGenerator(arcade.View):
         # lets controller know that a key has become unpressed
         game.controller.get_key_press(self, symbol, True)
 
-    def add_enemy(self, enemy_name, size, word):
-        enemy = Enemy(enemy_name, size, word)
-        enemy.center_x = 100
-        enemy.center_y = 100
-        enemy.color = (0,0,0)
-        self.enemy_list.append(enemy)
+    def add_enemy(self, enemy_name, size, word, pos_index):
+            enemy = Enemy(enemy_name, size, word)
+            pos = enemy.position_list[pos_index]
+            enemy.center_x = pos[0]
+            enemy.center_y = pos[1]
+            enemy.color = (0,0,0)
+            self.enemy_list.append(enemy)
 
     def on_enter(self):
         for enemy in self.enemy_list:

@@ -9,6 +9,7 @@ class Enemy(Sprite):
 
         self.shot = False
         self.word = word
+        self.position_list = [[200,300], [500,500], [800,600]]
 
     def update(self):
         if self.shot == True:
