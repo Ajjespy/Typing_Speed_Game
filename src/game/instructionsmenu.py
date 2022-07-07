@@ -10,6 +10,7 @@ class InstructionsMenu(View):
         self.buttons = True
         self.max_x = self.window.width
         self.max_y = self.window.height
+        #  == These are for the tumble weed
         self.tumbleweed_present = False
         self.turn_speed = -75
         self.tumbleweed_path_list = [2,0.5,0.25,0,-0.25,-0.5,-2]
@@ -70,6 +71,14 @@ After practicing and participating in the town paintball match, there will be a 
             self.tumbleweed.update()
 
     def generate_tumbleweed(self):
+        """
+        Generates a tumbleweed for the main screen if there is none present
+
+        This function will randomly generate numbers if the number matches the tumble_chance and there is no
+        tumbleweed a tumbleweed will be created as long as there isn't a current tumbleweed
+
+        This function will also delete the tumbleweed when it crosses the end of the screen
+        """
 
         tumble_chance = randint(0,500)
 
