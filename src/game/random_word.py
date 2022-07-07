@@ -1,9 +1,8 @@
 # TODO
 # Implement a difficulty system.
 # Shorter words for practice mode.
-
-import random
-import linecache
+from random import randint
+from linecache import clearcache, getline
 from game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
 FILE_NAME = RESOURCE_PATH + "clean_word_list_with_difficulty.csv"
@@ -27,7 +26,7 @@ class RandomWord:
     """
 
     def set_word(difficulty):
-        linecache.clearcache()
+        clearcache()
 
         if difficulty == 1:
             file_name = DIFF_1
@@ -49,7 +48,7 @@ class RandomWord:
         with open(file_name, "r") as f:
             length = len(f.readlines())
 
-        line = linecache.getline(file_name, random.randint(1, length))
+        line = getline(file_name, randint(1, length))
         parts = line.split(",")
         return parts[1].strip()
 
@@ -88,7 +87,7 @@ class RandomWord:
 
         letters = ""
         for i in range(length):
-            letters += LETTERS_BY_ROW[row][random.randint(0, len(LETTERS_BY_ROW[row]) - 1)]
+            letters += LETTERS_BY_ROW[row][randint(0, len(LETTERS_BY_ROW[row]) - 1)]
 
         if lower_case:
             return letters.lower() # TODO allow string to have variable numbers of capitals mixed in

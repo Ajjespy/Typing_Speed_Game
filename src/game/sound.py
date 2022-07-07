@@ -2,7 +2,7 @@
 # TODO fade music on transitions, SFX, etc.
 from arcade import Sound
 import string
-import time
+from time import sleep
 
 DEFAULT_MUSIC_VOLUME = 0.4
 DEFAULT_SFX_VOLUME = 0.5
@@ -74,7 +74,7 @@ class MusicHandler(SoundHandler):
         self.sound = Sound(song, streaming=True)
         self.current_player = self.sound.play(self.music_volume * unique_volume_mod, loop=loop)
 
-        time.sleep(0.03)  # Small delay so the function doesn't skip a track
+        sleep(0.03)  # Small delay so the function doesn't skip a track
 
 
 class SFXHandler(SoundHandler):
@@ -108,4 +108,4 @@ class SFXHandler(SoundHandler):
         self.sound = Sound(effect, streaming=True)
         self.current_player = self.sound.play(self.sfx_volume * unique_volume_mod, loop=loop)
         # Small delay so the function doesn't skip a track
-        time.sleep(0.03)
+        sleep(0.03)
