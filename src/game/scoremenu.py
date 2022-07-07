@@ -1,43 +1,41 @@
-import arcade
-import arcade.gui
-import game.constants as const
+from arcade import View, load_texture, gui, start_render, draw_lrwh_rectangle_textured, draw_text, color
 import game.controller as controller
-from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH, SFX_DICT, SFX_HANDLER, MUSIC_DICT, MUSIC_HANDLER
 
-class ScoreMenu(arcade.View):
+class ScoreMenu(View):
     def __init__(self):
         super().__init__()
         self.buttons = True
 
     def setup(self, stat_tracker):
-        self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
 
-        self.manager = arcade.gui.UIManager()
+        self.manager = gui.UIManager()
         self.manager.enable()
-        self.vBox = arcade.gui.UIBoxLayout(vertical = True)
+        self.vBox = gui.UIBoxLayout(vertical = True)
 
-        backButtonTexture = arcade.load_texture(f":resources:onscreen_controls/shaded_dark/back.png")  # TODO This needs a custom texture.
-        backButton = arcade.gui.UITextureButton(texture=backButtonTexture,texture_hovered=backButtonTexture, scale= 1.5)
+        backButtonTexture = load_texture(f":resources:onscreen_controls/shaded_dark/back.png")  # TODO This needs a custom texture.
+        backButton = gui.UITextureButton(texture=backButtonTexture,texture_hovered=backButtonTexture, scale= 1.5)
         
         @backButton.event("on_click")
         def on_click_texture_button(event):
             controller.on_change_view(self, 0,)
-            const.SFX_HANDLER.play_sfx(const.SFX_DICT["whoosh"])
+            SFX_HANDLER.play_sfx(SFX_DICT["whoosh"])
         
         self.vBox.add(backButton.with_space_around(right = 80, left = 80))
 
-        self.manager.add(arcade.gui.UIAnchorWidget(anchor_x = "center", anchor_y = "center", align_x=660, align_y=-350, child = self.vBox))
+        self.manager.add(gui.UIAnchorWidget(anchor_x = "center", anchor_y = "center", align_x=660, align_y=-350, child = self.vBox))
 
-        self.manager.add(arcade.gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
+        self.manager.add(gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
-        const.MUSIC_HANDLER.play_song(const.MUSIC_DICT["wind"])
+        MUSIC_HANDLER.play_song(MUSIC_DICT["wind"])
 
 
     def on_draw(self):
-        arcade.start_render()
-        arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+        start_render()
+        draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.manager.draw()
-        arcade.draw_text(f"Score: 0", SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, arcade.color.GREEN, 44, 500, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
+        draw_text(f"Score: 0", SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, color.GREEN, 44, 500, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
 
 
     def on_update(self, delta_time: float):

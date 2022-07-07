@@ -1,11 +1,11 @@
-import arcade
-import game.constants as const
+from arcade import Sprite
+from game.constants import RESOURCE_PATH
 from math import radians
 
-class Enemy(arcade.Sprite):
+class Enemy(Sprite):
     
     def __init__(self, enemy_name, size, word):
-        super().__init__(f"{const.RESOURCE_PATH}/enemy_sprites/{enemy_name}.png", size)
+        super().__init__(f"{RESOURCE_PATH}/enemy_sprites/{enemy_name}.png", size)
 
         self.shot = False
         self.word = word

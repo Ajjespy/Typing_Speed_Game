@@ -1,4 +1,4 @@
-import arcade
+from arcade import load_texture, key, exit
 from game.constants import RESOURCE_PATH, convertLetters
 import game.trainingmenu
 import game.traininginstructions
@@ -11,37 +11,37 @@ import game.levelGenerator
 
 def get_key_press(director, symbol, unpress = False, modifier = None):
     
-    if symbol == arcade.key.ESCAPE and not unpress:
+    if symbol == key.ESCAPE and not unpress:
         director.window.set_fullscreen(not director.window.fullscreen)
 
     if symbol in set(range(97, 123)) and not unpress:
         try:
             #if numbers are used need to convertLetters[chr(symbol).upper()] + 9
-            director.keyboard_sprites[convertLetters[chr(symbol).upper()] - 1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_pressed/{chr(symbol - 97 + 65)}_Key_Light.png")
+            director.keyboard_sprites[convertLetters[chr(symbol).upper()] - 1].texture = load_texture(f"{RESOURCE_PATH}keys_pressed/{chr(symbol - 97 + 65)}_Key_Light.png")
         except:
             pass
 
     if symbol in set(range(97, 123)) and unpress:
         try:
-            director.keyboard_sprites[convertLetters[chr(symbol).upper()] - 1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_unpressed/{chr(symbol - 97 + 65)}_Key_Dark.png")
+            director.keyboard_sprites[convertLetters[chr(symbol).upper()] - 1].texture = load_texture(f"{RESOURCE_PATH}keys_unpressed/{chr(symbol - 97 + 65)}_Key_Dark.png")
         except:
             pass
 
-    if (symbol == arcade.key.LSHIFT or symbol == arcade.key.RSHIFT) and not unpress:
+    if (symbol == key.LSHIFT or symbol == key.RSHIFT) and not unpress:
         try:
-            director.keyboard_sprites[len(director.keyboard_sprites) - 1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_pressed/Shift_Alt_Key_Light.png")
+            director.keyboard_sprites[len(director.keyboard_sprites) - 1].texture = load_texture(f"{RESOURCE_PATH}keys_pressed/Shift_Alt_Key_Light.png")
         except:
             pass
-    if (symbol == arcade.key.LSHIFT or symbol == arcade.key.RSHIFT) and unpress:
+    if (symbol == key.LSHIFT or symbol == key.RSHIFT) and unpress:
         try:
-            director.keyboard_sprites[len(director.keyboard_sprites) - 1].texture = arcade.load_texture(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png")
+            director.keyboard_sprites[len(director.keyboard_sprites) - 1].texture = load_texture(f"{RESOURCE_PATH}keys_unpressed/Shift_Alt_Key_Dark.png")
         except:
             pass
         
-    if (symbol == arcade.key.ESCAPE):
-        arcade.exit()
+    if (symbol == key.ESCAPE):
+        exit()
 
-    if (symbol == arcade.key.DELETE):
+    if (symbol == key.DELETE):
         on_change_view(director, 0)
     
 

@@ -1,6 +1,6 @@
 from arcade import Sprite, View, load_texture, gui, color, draw_text, draw_lrwh_rectangle_textured, start_render
 import game.controller as controller
-from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH, MUSIC_DICT, MUSIC_HANDLER, SFX_DICT, SFX_HANDLER
+from game.constants import RESOURCE_PATH, MUSIC_DICT, MUSIC_HANDLER, SFX_DICT, SFX_HANDLER
 from random import randint
 from game.tumbleweed import Tumbleweed
 

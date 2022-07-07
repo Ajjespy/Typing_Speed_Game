@@ -1,12 +1,12 @@
-import arcade
-import game.constants as const
+from arcade import Sprite, load_texture
+from game.constants import RESOURCE_PATH
 from math import radians
 
-class Tumbleweed(arcade.Sprite):
+class Tumbleweed(Sprite):
     
     def __init__(self, starting_x, starting_y, size, tumble_path, speed, pause_next, spin):
         super().__init__()
-        self.texture = arcade.load_texture(f"{const.RESOURCE_PATH}Tumbleweed.png")
+        self.texture = load_texture(f"{RESOURCE_PATH}Tumbleweed.png")
         # Where the tumbleweed starts
         self.center_x = starting_x
         self.center_y = starting_y
