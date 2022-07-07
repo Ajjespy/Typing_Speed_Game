@@ -9,7 +9,7 @@ class ScoreMenu(arcade.View):
         super().__init__()
         self.buttons = True
 
-    def setup(self):
+    def setup(self, stat_tracker):
         self.background = arcade.load_texture(f"{RESOURCE_PATH}Paper.png")
 
         self.manager = arcade.gui.UIManager()
