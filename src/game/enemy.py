@@ -12,5 +12,5 @@ class Enemy(Sprite):
 
     def update(self):
         if self.shot == True:
-            self.remove_from_sprite_lists
+            self.remove_from_sprite_lists()
 

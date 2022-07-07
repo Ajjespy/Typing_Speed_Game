@@ -50,6 +50,7 @@ class LevelGenerator(arcade.View):
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
         # checks if the user has typed in the correct word
+        self.enemy_list.update()
 
         # stat checker stuff will be gone when stattracker is finished
         if not (self.start_type_time == None or self.end_type_time == None):
@@ -95,7 +96,6 @@ class LevelGenerator(arcade.View):
 
                 self.num_words += 1
                 self.userType = ""
-
                 enemy.shot = True
 
         self.userType = ""
