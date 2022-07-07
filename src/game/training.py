@@ -9,18 +9,27 @@ import game.stattracker as stat
 class Training(View):
     def __init__(self):
         super().__init__()
-        self.background = None
+        # Has no buttons
         self.buttons = False
         
     def setup(self, difficulty = "ALL"):
         """
         Runs before the view is changed used for resetting the view without deleting the object
         """
+        # user has to type 20 words to pass this level of training
         self.words_left = 20
+
+        # stat tracker object used to store WPM and other useful information
         self.stattracker = stat.StatTracker()
+
         self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+
+        # onscreen keyboard spritelist
         self.keyboard_sprites = SpriteList(use_spatial_hash = False)
+
         self.create_keyboard_sprites()
+
+        # generates random word depending on the difficulty
         if difficulty == "ALL":
             if randint(0, 1) == 1:
                 self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = difficulty)
@@ -28,6 +37,8 @@ class Training(View):
                 self.randomWord = RandomWord.get_word(randint(1, 8))
         else:
             self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = difficulty)
+
+        
         self.userType = ""
         self.last_time = 0
         self.num_words = 0
@@ -35,11 +46,12 @@ class Training(View):
         self.end_type_time = None
         self.difficulty = difficulty
 
+        # sound
         MUSIC_HANDLER.play_song(MUSIC_DICT["saloon_honkey_tonk"])
 
     def create_keyboard_sprites(self):
         """
-        Creates the sprites for the on screen keyboard. Should be run in the setup function.
+        Creates the sprites for the on screen keyboard. Should be run in the setup function. All sprites are stored in SpriteList.
         """
         # Code to display the numbers for the onscreen keyboard currently not in use so commented out
         # for i in range(1, 11):
@@ -52,7 +64,7 @@ class Training(View):
         letters_keyboard_order = "QWERTYUIOPASDFGHJKLZXCVBNM"
         i = 0
 
-        #Creates the sprites or A-Z and positions them on screen
+        #Creates the sprites for A-Z and positions them on screen
         for letter in letters_keyboard_order:
             new_sprite = Sprite(f"{RESOURCE_PATH}keys_unpressed/{letter}_Key_Dark.png", 1)
             if i < 5:
@@ -89,9 +101,14 @@ class Training(View):
         start_render()
         # background gets drawn first
         draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
+
+        # draws the on screen keyboard
         self.keyboard_sprites.draw()
+
+        # draws what the user is typing and what the user needs to type
         draw_text(self.randomWord, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 48, color.RED, 44, 400, "left", font_name="Ultra")
         draw_text(self.userType, self.window.width / 2 - 44 * 5.5, self.window.height * 3 / 4 - 200, color.BLUE, 44, 400, "left", font_name="Ultra")
+        # simple stat tracker for instant stats
         draw_text(f"Sec: {int(self.last_time)}", self.window.width - 400, self.window.height - 48, color.GREEN, 44, 500, "center", "Ultra")  
         draw_text(f"Words: {self.num_words}", self.window.width - 450, self.window.height - 100, color.GREEN, 44, 500, "center", "Ultra")
 
@@ -103,8 +120,10 @@ class Training(View):
             self.end_type_time = time()
             self.last_time = self.end_type_time - self.start_type_time
             self.words_left -= 1
+            # plays sound when word is typed correctly
             SFX_HANDLER.play_sfx(SFX_DICT["ding"], 1.5)
 
+            # generates new random word for user to type
             if self.difficulty == "ALL":
                 if randint(0, 1) == 1:
                     self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = self.difficulty)
@@ -113,9 +132,11 @@ class Training(View):
             else:
                 self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = self.difficulty)
 
+            # resets the user input so they can type a new word
             self.num_words += 1
             self.userType = ""
 
+        # clears what the user has typed after they reach the length of the word and it is not spelled correctly
         elif len(self.userType) > len(self.randomWord) - 1:
             self.userType = ""
 
@@ -125,6 +146,7 @@ class Training(View):
             self.start_type_time = None
 
         if self.words_left <= 0:
+            # after user has typed all 20 words go to the stat screen for stattracker information
             controller.on_change_view(self, 3, self.stattracker)
 
     def on_key_press(self, symbol: int, modifiers: int):
@@ -139,6 +161,7 @@ class Training(View):
                 self.userType = self.userType + chr(symbol).upper()
             else:
                 self.userType = self.userType + chr(symbol)
+        # user can backspace characters as long as they have not reached the end of the word
         if symbol == key.BACKSPACE:
             self.userType = self.userType[:-1]
 
