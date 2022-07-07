@@ -2,7 +2,7 @@ import arcade
 import arcade.gui
 import game.constants as const
 import game.controller as controller
-from game.constants import RESOURCE_PATH, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.constants import RESOURCE_PATH
 from random import randint
 from game.tumbleweed import Tumbleweed
 
@@ -12,9 +12,11 @@ class InstructionsMenu(arcade.View):
         self.buttons = True
         self.max_x = self.window.width
         self.max_y = self.window.height
+        #  == These are for the tumble weed
         self.tumbleweed_present = False
         self.turn_speed = -75
         self.tumbleweed_path_list = [2,0.5,0.25,0,-0.25,-0.5,-2]
+        #  ==
         self.Tim = arcade.Sprite(f"{const.RESOURCE_PATH}/enemy_sprites/Friendly Tim.png", 0.75)
         self.Tim.center_x = 150
         self.Tim.center_y = 150
@@ -60,7 +62,7 @@ After practicing and participating in the town paintball match, there will be a 
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.manager.draw()
-        arcade.draw_text(self.speach, 0, self.max_y, arcade.color.BLACK, 24, self.max_x, "center", "Ultra")  # TODO Create actual instructions.
+        arcade.draw_text(self.speach, 0, self.max_y, arcade.color.BLACK, 24, self.max_x, "center", "Ultra")
         self.Tim.draw()
         if self.tumbleweed_present:
             self.tumbleweed.draw()
@@ -72,6 +74,14 @@ After practicing and participating in the town paintball match, there will be a 
             self.tumbleweed.update()
 
     def generate_tumbleweed(self):
+        """
+        Generates a tumbleweed for the main screen if there is none present
+
+        This function will randomly generate numbers if the number matches the tumble_chance and there is no
+        tumbleweed a tumbleweed will be created as long as there isn't a current tumbleweed
+
+        This function will also delete the tumbleweed when it crosses the end of the screen
+        """
 
         tumble_chance = randint(0,500)
 

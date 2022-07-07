@@ -2,9 +2,6 @@ import arcade
 import arcade.gui
 import game.constants as const
 import game.controller
-from game.sound import SoundHandler
-import time
-from tkinter import VERTICAL
 from game.tumbleweed import Tumbleweed
 from random import randint
 
@@ -16,11 +13,15 @@ class MainMenu(arcade.View):
         self.current_song_index = 0
         self.current_player = None
         self.music = None
+
+        # === These values are used in the generation of the tumbleweed on the main screen ===
         self.tumbleweed_present = False
         self.turn_speed = 75
         self.tumbleweed_path_list = [5,2,1,0,-1,-2,-5]
         self.tumblepoint = 0
         self.next_y = 0
+        # ===
+
         self.max_x = self.window.width
         self.max_y = self.window.height
         self.buttons = True
@@ -134,6 +135,14 @@ class MainMenu(arcade.View):
     
 
     def generate_tumbleweed(self):
+        """
+        Generates a tumbleweed for the main screen if there is none present
+
+        This function will randomly generate numbers if the number matches the tumble_chance and there is no
+        tumbleweed a tumbleweed will be created as long as there isn't a current tumbleweed
+
+        This function will also delete the tumbleweed when it crosses the end of the screen
+        """
 
         tumble_chance = randint(0,500)
 
