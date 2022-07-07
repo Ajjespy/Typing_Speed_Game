@@ -47,7 +47,7 @@ class Training(View):
         self.difficulty = difficulty
 
         # sound
-        MUSIC_HANDLER.play_song(MUSIC_DICT["saloon_honkey_tonk"])
+        MUSIC_HANDLER.play_song(MUSIC_DICT["saloon_honkey_tonk"], .15)
 
     def create_keyboard_sprites(self):
         """
