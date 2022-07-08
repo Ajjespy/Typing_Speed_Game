@@ -12,7 +12,7 @@ class TrainingInstructions(View):
         """
         Runs before the view is changed used for resetting the view without deleting the object
         """
-        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.background = load_texture(f"{RESOURCE_PATH}backgrounds/Paper.png")
 
         # manager handles buttons
         self.manager = gui.UIManager()

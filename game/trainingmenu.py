@@ -12,7 +12,7 @@ class TrainingMenu(View):
         """
         Runs before the view is changed used for resetting the view without deleting the object
         """
-        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.background = load_texture(f"{RESOURCE_PATH}backgrounds/Paper.png")
 
         # manager handles the packing of buttons on the screen
         self.manager = gui.UIManager()
@@ -20,14 +20,14 @@ class TrainingMenu(View):
         self.vBox = gui.UIBoxLayout(vertical = True)
 
         # Textures for buttons
-        topRowTexture = load_texture(f"{RESOURCE_PATH}toprow.png")
-        topRowTextureHovered = load_texture(f"{RESOURCE_PATH}toprow_hovered.png")
-        middleRowTexture = load_texture(f"{RESOURCE_PATH}middlerow.png")
-        middleRowTextureHovered = load_texture(f"{RESOURCE_PATH}middlerow_hovered.png")
-        bottomRowTexture = load_texture(f"{RESOURCE_PATH}bottomrow.png")
-        bottomRowTextureHovered = load_texture(f"{RESOURCE_PATH}bottomrow_hovered.png")
-        allRowTexture = load_texture(f"{RESOURCE_PATH}allrows.png")
-        allRowTextureHovered = load_texture(f"{RESOURCE_PATH}allrows_hovered.png")
+        topRowTexture = load_texture(f"{RESOURCE_PATH}buttons/toprow.png")
+        topRowTextureHovered = load_texture(f"{RESOURCE_PATH}buttons/toprow_hovered.png")
+        middleRowTexture = load_texture(f"{RESOURCE_PATH}buttons/middlerow.png")
+        middleRowTextureHovered = load_texture(f"{RESOURCE_PATH}buttons/middlerow_hovered.png")
+        bottomRowTexture = load_texture(f"{RESOURCE_PATH}buttons/bottomrow.png")
+        bottomRowTextureHovered = load_texture(f"{RESOURCE_PATH}buttons/bottomrow_hovered.png")
+        allRowTexture = load_texture(f"{RESOURCE_PATH}buttons/allrows.png")
+        allRowTextureHovered = load_texture(f"{RESOURCE_PATH}buttons/allrows_hovered.png")
 
         # Create the buttons here        
         topButton = gui.UITextureButton(texture = topRowTexture, texture_hovered = topRowTextureHovered, scale = 2)

@@ -18,7 +18,7 @@ class LevelGenerator(arcade.View):
         """
         Runs before the view is changed used for resetting the view without deleting the object
         """
-        self.background = arcade.load_texture(f"{RESOURCE_PATH}ShootZone.png")
+        self.background = arcade.load_texture(f"{RESOURCE_PATH}backgrounds/ShootZone.png")
             
         self.userType = ""
         self.last_time = 0

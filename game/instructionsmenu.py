@@ -32,7 +32,7 @@ After practicing and participating in the town paintball match, there will be a 
         """
 
     def setup(self):
-        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.background = load_texture(f"{RESOURCE_PATH}backgrounds/Paper.png")
 
         self.manager = gui.UIManager()
         self.manager.enable()

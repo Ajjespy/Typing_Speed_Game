@@ -5,7 +5,7 @@ from random import randint
 from linecache import clearcache, getline
 from game.constants import RESOURCE_PATH, LETTERS_BY_ROW
 
-FILE_NAME = RESOURCE_PATH + "clean_word_list_with_difficulty.csv"
+FILE_NAME = RESOURCE_PATH + "word_files/clean_word_list_with_difficulty.csv"
 DIFF_1 = RESOURCE_PATH + "word_files/diff_1.csv"
 DIFF_2 = RESOURCE_PATH + "word_files/diff_2.csv"
 DIFF_3 = RESOURCE_PATH + "word_files/diff_3.csv"

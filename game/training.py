@@ -22,7 +22,7 @@ class Training(View):
         # stat tracker object used to store WPM and other useful information
         self.stattracker = stat.StatTracker()
 
-        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.background = load_texture(f"{RESOURCE_PATH}backgrounds/Paper.png")
 
         # onscreen keyboard spritelist
         self.keyboard_sprites = SpriteList(use_spatial_hash = False)

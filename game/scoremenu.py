@@ -8,7 +8,7 @@ class ScoreMenu(View):
         self.buttons = True
 
     def setup(self, stat_tracker):
-        self.background = load_texture(f"{RESOURCE_PATH}Paper.png")
+        self.background = load_texture(f"{RESOURCE_PATH}backgrounds/Paper.png")
 
         self.manager = gui.UIManager()
         self.manager.enable()
