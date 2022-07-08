@@ -1,5 +1,5 @@
-from src.game.random_word import RandomWord
-import src.game.constants as const
+from game.random_word import RandomWord
+import game.constants as const
 import pytest
 
 def test_get_word_gives_string(difficulty=3):
