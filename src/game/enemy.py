@@ -4,12 +4,12 @@ from math import radians
 
 class Enemy(Sprite):
     
-    def __init__(self, enemy_name, size, word):
+    def __init__(self, enemy_name, size, word, position):
         super().__init__(f"{RESOURCE_PATH}/enemy_sprites/{enemy_name}.png", size)
 
         self.shot = False
         self.word = word
-        self.position_list = [[200,300], [500,500], [800,600]]
+        self.list_position = position
 
     def update(self):
         if self.shot == True:

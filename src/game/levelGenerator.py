@@ -26,6 +26,8 @@ class LevelGenerator(arcade.View):
         self.start_type_time = None
         self.end_type_time = None
 
+        self.enemy_pos = [-1, -1, -1]
+
         # add first enemy
         if self.num_words == 0:
             self.add_enemy(self.enemy_names_list[0], .5, RandomWord.get_word(randint(1, 8)), 0)
@@ -45,7 +47,7 @@ class LevelGenerator(arcade.View):
 
         for enemy in self.enemy_list:
             enemy.draw()
-            arcade.draw_text(enemy.word, enemy.center_x, enemy.center_y, arcade.color.RED, 44, 400, "left", font_name="Ultra")
+            arcade.draw_text(enemy.word, enemy.center_x, enemy.center_y, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
 
 
     def on_update(self, delta_time: float):
@@ -59,10 +61,11 @@ class LevelGenerator(arcade.View):
             self.start_type_time = None
         
         # add more ememies based on number of words user has typed
-        if self.num_words == 1:
-            self.add_enemy(self.enemy_names_list[1], .75, RandomWord.get_word(randint(1, 8)), 1)
-        elif self.num_words >= 2:
-            self.add_enemy(self.enemy_names_list[randint(0, len(self.enemy_names_list))], .75, RandomWord.get_word(randint(1, 8)), randint(0,2))
+        if not len(self.enemy_list) >= 3:
+            pos = randint(0,2)
+            while self.enemy_pos[pos] > 0:
+                pos = randint(0,2)
+            self.add_enemy(self.enemy_names_list[randint(0, len(self.enemy_names_list) - 1)], .75, RandomWord.get_word(randint(1, 8)), pos)
 
     def on_key_press(self, symbol: int, modifiers: int):
         game.controller.get_key_press(self, symbol)
@@ -88,12 +91,14 @@ class LevelGenerator(arcade.View):
         game.controller.get_key_press(self, symbol, True)
 
     def add_enemy(self, enemy_name, size, word, pos_index):
-            enemy = Enemy(enemy_name, size, word)
-            pos = enemy.position_list[pos_index]
-            enemy.center_x = pos[0]
-            enemy.center_y = pos[1]
-            enemy.color = (0,0,0)
-            self.enemy_list.append(enemy)
+        position_list = [[200,300], [500,500], [800,600]]
+        enemy = Enemy(enemy_name, size, word, pos_index)
+        pos = position_list[pos_index]
+        enemy.center_x = pos[0]
+        enemy.center_y = pos[1]
+        enemy.color = (0,0,0)
+        self.enemy_list.append(enemy)
+        self.enemy_pos[pos_index] = 1
 
     def on_enter(self):
         for enemy in self.enemy_list:
@@ -105,5 +110,5 @@ class LevelGenerator(arcade.View):
                 self.num_words += 1
                 self.userType = ""
                 enemy.shot = True
-
+                self.enemy_pos[enemy.list_position] = -1
         self.userType = ""
