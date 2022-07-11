@@ -17,10 +17,7 @@ class InstructionsMenu(View):
         self.Tim = Sprite(f"{RESOURCE_PATH}/enemy_sprites/Friendly Tim.png", 0.75)
         self.Tim.center_x = 150
         self.Tim.center_y = 150
-        r = randint(0,255)
-        g = randint(0,255)
-        b = randint(0,255)
-        self.Tim.color = (r,g,b)
+        self.random_color()
         self.speech = """
         
         Howdy partner! It’s been a while since this here town has gotten any visitors just to let you know, this town has gotten a strange tradition for when we get visitors. We have a town-wide paintball fight!
@@ -53,6 +50,13 @@ After practicing and participating in the town paintball match, there will be a 
         self.manager.add(gui.UIPadding(child=self.vBox, bg_color=(0, 0, 0, 0)))
 
         MUSIC_HANDLER.play_song(MUSIC_DICT["wind"])
+
+    def random_color(self):
+        r = randint(0,200)
+        g = randint(0,200)
+        b = randint(0,200)
+        
+        self.Tim.color = (r,g,b)
 
 
     def on_draw(self):

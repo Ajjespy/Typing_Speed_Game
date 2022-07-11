@@ -96,7 +96,6 @@ class LevelGenerator(arcade.View):
         pos = position_list[pos_index]
         enemy.center_x = pos[0]
         enemy.center_y = pos[1]
-        enemy.color = (0,0,0)
         self.enemy_list.append(enemy)
         self.enemy_pos[pos_index] = 1
 
