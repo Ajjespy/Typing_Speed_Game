@@ -30,13 +30,21 @@ class ScoreMenu(View):
 
         MUSIC_HANDLER.play_song(MUSIC_DICT["wind"])
 
+        if stat_tracker != None:
+            self.accuracy = stat_tracker.percentage()
+            self.WPM = stat_tracker.wpm()
+            self.letters_struggle = stat_tracker.struggle_letters()
+        else:
+            self.WPM = None
 
     def on_draw(self):
         start_render()
         draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background)
         self.manager.draw()
-        draw_text(f"Score: 0", SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, color.GREEN, 44, 500, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
-
+        if self.WPM != None:
+            draw_text(f"WPM: {self.WPM}", self.window.width / 4, self.window.height - 100, color.GREEN, 24, 800, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
+            draw_text(f"Percentage: {self.accuracy}", self.window.width / 4, self.window.height - 300, color.GREEN, 24, 800, "center", "Ultra")
+            draw_text(f"Letters You Struggled With: {self.letters_struggle}", self.window.width / 4, self.window.height - 500, color.GREEN, 24, 800, "center", "Ultra")
 
     def on_update(self, delta_time: float):
         return super().on_update(delta_time)

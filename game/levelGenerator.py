@@ -30,7 +30,7 @@ class LevelGenerator(arcade.View):
 
         # add first enemy
         if self.num_words == 0:
-            self.add_enemy(self.enemy_names_list[0], .5, RandomWord.get_word(randint(1, 8)), 0)
+            self.add_enemy(self.enemy_names_list[0], .75, RandomWord.get_word(randint(1, 4)), 0)
 
         MUSIC_HANDLER.play_song(MUSIC_DICT["wind"])  # add music here
 
@@ -65,7 +65,7 @@ class LevelGenerator(arcade.View):
             pos = randint(0,2)
             while self.enemy_pos[pos] > 0:
                 pos = randint(0,2)
-            self.add_enemy(self.enemy_names_list[randint(0, len(self.enemy_names_list) - 1)], .75, RandomWord.get_word(randint(1, 8)), pos)
+            self.add_enemy(self.enemy_names_list[randint(0, len(self.enemy_names_list) - 1)], .75, RandomWord.get_word(randint(1, 4)), pos)
 
     def on_key_press(self, symbol: int, modifiers: int):
         game.controller.get_key_press(self, symbol)

@@ -14,26 +14,24 @@ class StatTracker():
         This function returns the accuracy of the users input
         """
         missed_count = 0
-        word_count = 0
-        self.list_of_words_one = []
-        self.list_of_user_words_one = []
-        self.list_of_characters_one = []
-        self.list_of_user_characters_one = []
+        char_count = 0
+        list_of_characters_one = []
+        list_of_user_characters_one = []
 
         # counts the total number of letters from list of words
-        for i in range(0, len(self.list_of_words_one)):
-            self.list_of_characters_one = self.list_of_characters_one + list(self.list_of_words_one[i])
-            word_count +=1
-            self.list_of_user_characters_one = self.list_of_user_characters_one + list(self.list_of_user_words_one[i])
+        for i in range(0, len(self.list_of_words)):
+            list_of_characters_one = list_of_characters_one + list(self.list_of_words[i])
+            list_of_user_characters_one = list_of_user_characters_one + list(self.list_of_user_words[i])
 
         # counts total number of letters missed by user
-        for i in range(0, len(self.list_of_characters_one)):
-            if self.list_of_user_characters_one[i] != self.list_of_characters_one[i]:
+        for i in range(0, len(list_of_characters_one)):
+            if list_of_user_characters_one[i] != list_of_characters_one[i]:
                 missed_count += 1
         
+        char_count = len(list_of_characters_one)
         # calculate letters missed
         # returns float value
-        raw_accuracy = word_count - missed_count / word_count
+        raw_accuracy = (char_count - missed_count) / char_count
         # calculate actual accuracy percentage
         self.user_accuracy = raw_accuracy * 100
 
@@ -45,21 +43,19 @@ class StatTracker():
         This function returns the wpm of the user
         """
         # time is in seconds
-        self.typing_time = self.end_time - self.start_time
+        typing_time = self.end_time - self.start_time
         # convert time to minutes
-        self.time_in_minutes = self.typing_time / 60
+        time_in_minutes = typing_time / 60
 
-        self.wpm = len(self.list_of_user_words)/ self.time_in_minutes
+        wpm = len(self.list_of_user_words) / time_in_minutes
 
-        return self.wpm + 20
+        return wpm + 30
 
     def struggle_letters(self):
         """
         This function returns the letters that the player struggled the most with
         """
         self.missed_letters = {}
-        self.list_of_user_words = []
-        self.list_of_words = []
         self.struggle_list = []
         self.list_of_characters = []
         self.list_of_user_characters = []
@@ -79,8 +75,6 @@ class StatTracker():
             item = self.missed_letters[key]
             if item >= 2:
                 self.struggle_list.append(key)
-            else:
-                pass
         
         return self.struggle_list
                  
@@ -89,28 +83,22 @@ class StatTracker():
         """
         This function adds the words the user is supposed to type to the word list
         """
-        self.word = word
-        self.list_of_words.append(self.word)
-        pass
+        self.list_of_words.append(word)
 
-    def set_start(self, time):
+    def set_start(self):
         """
         This function sets the start time
         """
         self.start_time = time.time()
-        return self.start_time
 
-    def set_end(self, time):
+    def set_end(self):
         """
         This function sets the end time
         """
         self.end_time = time.time()
-        return self.end_time
 
     def add_user_word(self, word):
         """
         This function adds words that user has typed
         """
-        self.word = word
-        self.list_of_user_words.append(self.word)
-        pass
+        self.list_of_user_words.append(word)

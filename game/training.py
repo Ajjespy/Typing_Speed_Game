@@ -32,11 +32,27 @@ class Training(View):
         # generates random word depending on the difficulty
         if difficulty == "ALL":
             if randint(0, 1) == 1:
-                self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = difficulty)
+                self.randomWord = RandomWord.get_random_chars(length = randint(4, 8), row = difficulty)
+                self.stattracker.add_word(self.randomWord)
             else:
-                self.randomWord = RandomWord.get_word(randint(1, 8))
+                percent = randint(1,10) % 2
+                if percent == 0:
+                    self.randomWord = RandomWord.get_word(randint(1, 3))
+                else:
+                    percent = randint(1,10) % 2
+                    if percent == 0:
+                        self.randomWord = RandomWord.get_word(randint(4, 5))
+                    else:
+                        percent = randint(1,10) % 2
+                        if percent == 0:
+                            self.randomWord = RandomWord.get_word(randint(6, 7))
+                        else:
+                            self.randomWord = RandomWord.get_word(8)
+                    
+                self.stattracker.add_word(self.randomWord)
         else:
-            self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = difficulty)
+            self.randomWord = RandomWord.get_random_chars(length = randint(4, 8), row = difficulty)
+            self.stattracker.add_word(self.randomWord)
 
         
         self.userType = ""
@@ -114,8 +130,8 @@ class Training(View):
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
-        # checks if the user has typed in the correct word
-        if len(self.userType) > len(self.randomWord) - 1 and self.userType == self.randomWord:
+        # clears what the user has typed after they reach the length of the word does not check accuracy
+        if len(self.userType) > len(self.randomWord) - 1:
             # stat checker stuff
             self.end_type_time = time()
             self.last_time = self.end_type_time - self.start_type_time
@@ -126,18 +142,33 @@ class Training(View):
             # generates new random word for user to type
             if self.difficulty == "ALL":
                 if randint(0, 1) == 1:
-                    self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = self.difficulty)
+                    self.randomWord = RandomWord.get_random_chars(length = randint(4, 8), row = self.difficulty)
+                    if self.words_left != 0:
+                        self.stattracker.add_word(self.randomWord)
                 else:
-                    self.randomWord = RandomWord.get_word(randint(1, 8))
+                    difficulty = randint(1,2) % 2
+                    if difficulty == 0:
+                        self.randomWord = RandomWord.get_word(randint(1, 3))
+                    else:
+                        difficulty = randint(1,2) % 2
+                        if difficulty == 0:
+                            self.randomWord = RandomWord.get_word(randint(4, 5))
+                        else:
+                            difficulty = randint(1,2) % 2
+                            if difficulty == 0:
+                                self.randomWord = RandomWord.get_word(randint(6, 7))
+                            else:
+                                self.randomWord = RandomWord.get_word(8)
+                    if self.words_left != 0:
+                        self.stattracker.add_word(self.randomWord)
             else:
-                self.randomWord = RandomWord.get_random_chars(length = randint(4, 10), row = self.difficulty)
+                self.randomWord = RandomWord.get_random_chars(length = randint(4, 8), row = self.difficulty)
+                if self.words_left != 0:
+                    self.stattracker.add_word(self.randomWord)
 
             # resets the user input so they can type a new word
             self.num_words += 1
-            self.userType = ""
-
-        # clears what the user has typed after they reach the length of the word and it is not spelled correctly
-        elif len(self.userType) > len(self.randomWord) - 1:
+            self.stattracker.add_user_word(self.userType)
             self.userType = ""
 
         # stat checker stuff will be gone when stattracker is finished
@@ -147,11 +178,14 @@ class Training(View):
 
         if self.words_left <= 0:
             # after user has typed all 20 words go to the stat screen for stattracker information
-            controller.on_change_view(self, 3, self.stattracker)
+            self.stattracker.set_end()
+            controller.on_change_view(self, 3, stat_tracker = self.stattracker)
 
     def on_key_press(self, symbol: int, modifiers: int):
         controller.get_key_press(self, symbol)
         if symbol > 96 and symbol < 123:
+            if self.stattracker.start_time == 0:
+                self.stattracker.set_start()
             # basic stat checker will be finished in stat checker file
             if self.end_type_time == None and self.start_type_time == None:
                 self.start_type_time = time()
