@@ -35,19 +35,14 @@ class Training(View):
                 self.randomWord = RandomWord.get_random_chars(length = randint(4, 8), row = difficulty)
                 self.stattracker.add_word(self.randomWord)
             else:
-                percent = randint(1,10) % 2
-                if percent == 0:
+                # 70% chance of it being an easy word 20% a harder word 10% very difficult word
+                prob = randint(1,10)
+                if prob in [1,2,3,4,5,6,7]:
                     self.randomWord = RandomWord.get_word(randint(1, 3))
+                elif prob in [8,9]:
+                    self.randomWord = RandomWord.get_word(randint(4, 5))
                 else:
-                    percent = randint(1,10) % 2
-                    if percent == 0:
-                        self.randomWord = RandomWord.get_word(randint(4, 5))
-                    else:
-                        percent = randint(1,10) % 2
-                        if percent == 0:
-                            self.randomWord = RandomWord.get_word(randint(6, 7))
-                        else:
-                            self.randomWord = RandomWord.get_word(8)
+                    self.randomWord = RandomWord.get_word(randint(6, 8))
                     
                 self.stattracker.add_word(self.randomWord)
         else:
@@ -146,19 +141,15 @@ class Training(View):
                     if self.words_left != 0:
                         self.stattracker.add_word(self.randomWord)
                 else:
-                    difficulty = randint(1,2) % 2
-                    if difficulty == 0:
+                    # 70% chance of it being an easy word 20% a harder word 10% very difficult word
+                    prob = randint(1,10)
+                    if prob in [1,2,3,4,5,6,7]:
                         self.randomWord = RandomWord.get_word(randint(1, 3))
+                    elif prob in [8,9]:
+                        self.randomWord = RandomWord.get_word(randint(4, 5))
                     else:
-                        difficulty = randint(1,2) % 2
-                        if difficulty == 0:
-                            self.randomWord = RandomWord.get_word(randint(4, 5))
-                        else:
-                            difficulty = randint(1,2) % 2
-                            if difficulty == 0:
-                                self.randomWord = RandomWord.get_word(randint(6, 7))
-                            else:
-                                self.randomWord = RandomWord.get_word(8)
+                        self.randomWord = RandomWord.get_word(randint(6, 8))
+
                     if self.words_left != 0:
                         self.stattracker.add_word(self.randomWord)
             else:
