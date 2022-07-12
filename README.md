@@ -25,7 +25,7 @@ This program is a game to both test and grow students typing and spelling abilit
 # Useful Websites
 
 - [Arcade Documentation](https://api.arcade.academy/en/latest/)
-- [Kaggle - Used For Random Words](https://www.kaggle.com/)
+- [Kaggle](https://www.kaggle.com/)
 
 # Future Work
 
