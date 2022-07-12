@@ -61,9 +61,9 @@ class ScoreMenu(View):
         self.manager.draw()
         # draws the score on the screen in a human readable way
         if self.WPM != None:
-            draw_text(f"WPM: {self.WPM}", self.window.width / 4, self.window.height - 100, color.GREEN, 24, 800, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
-            draw_text(f"Percentage: {self.accuracy}", self.window.width / 4, self.window.height - 300, color.GREEN, 24, 800, "center", "Ultra")
-            draw_text(f"Letters You Struggled With: {self.letters_struggle}", self.window.width / 4, self.window.height - 500, color.GREEN, 24, 800, "center", "Ultra")
+            draw_text(f"WPM: {self.WPM}", self.window.width / 4, self.window.height * .75, color.GREEN, 24, 800, "center", "Ultra")  # TODO This needs to receive a score from stattracker.py "Score: 0" is a placeholder.
+            draw_text(f"Percentage: {self.accuracy}", self.window.width / 4, self.window.height * .55, color.GREEN, 24, 800, "center", "Ultra")
+            draw_text(f"Letters You Struggled With: {self.letters_struggle}", self.window.width / 4, self.window.height * .25, color.GREEN, 24, 800, "center", "Ultra")
 
     def on_update(self, delta_time: float):
         return super().on_update(delta_time)
