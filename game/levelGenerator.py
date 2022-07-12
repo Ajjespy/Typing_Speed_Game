@@ -47,7 +47,7 @@ class LevelGenerator(arcade.View):
 
         for enemy in self.enemy_list:
             enemy.draw()
-            arcade.draw_text(enemy.word, enemy.center_x, enemy.center_y, arcade.color.BLUE, 44, 400, "left", font_name="Ultra")
+            arcade.draw_text(enemy.word, enemy.center_x - 75, enemy.center_y + (enemy.height / 2), arcade.color.BLUE, 28, 400, "left", font_name="Ultra")
 
 
     def on_update(self, delta_time: float):
