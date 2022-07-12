@@ -1,6 +1,5 @@
 import time
 
-
 class StatTracker():
 
     def __init__(self):
@@ -29,6 +28,10 @@ class StatTracker():
                 missed_count += 1
         
         char_count = len(list_of_characters_one)
+
+        if char_count == 0:
+            return 0
+
         # calculate letters missed
         # returns float value
         raw_accuracy = (char_count - missed_count) / char_count
@@ -37,19 +40,21 @@ class StatTracker():
 
         return self.user_accuracy
       
-
     def wpm(self):
         """
         This function returns the wpm of the user
         """
         # time is in seconds
         typing_time = self.end_time - self.start_time
+
+        if typing_time == 0:
+            return 0
         # convert time to minutes
-        time_in_minutes = typing_time / 60
+        time_in_minutes = float(typing_time / 60)
 
-        wpm = len(self.list_of_user_words) / time_in_minutes
+        wordspm = len(self.list_of_user_words) / time_in_minutes
 
-        return wpm + 30
+        return wordspm + 30
 
     def struggle_letters(self):
         """
@@ -78,7 +83,6 @@ class StatTracker():
         
         return self.struggle_list
                  
-
     def add_word(self, word):
         """
         This function adds the words the user is supposed to type to the word list

@@ -1,6 +1,7 @@
 import arcade
 import game.controller
 from game.constants import RESOURCE_PATH, MUSIC_HANDLER, MUSIC_DICT
+from game.stattracker import StatTracker
 from game.random_word import RandomWord
 from time import time
 from random import randint
@@ -25,6 +26,8 @@ class LevelGenerator(arcade.View):
         self.num_words = 0
         self.start_type_time = None
         self.end_type_time = None
+        self.has_started = False
+        self.stattracker = StatTracker()
 
         self.enemy_pos = [-1, -1, -1]
 
@@ -47,13 +50,23 @@ class LevelGenerator(arcade.View):
 
         for enemy in self.enemy_list:
             enemy.draw()
-            arcade.draw_text(enemy.word, enemy.center_x - 75, enemy.center_y + (enemy.height / 2), arcade.color.BLUE, 28, 400, "left", font_name="Ultra")
+            arcade.draw_text(enemy.word, enemy.center_x - 85, enemy.center_y + (enemy.height / 2), arcade.color.BLUE, 28, 400, "left", font_name="Ultra")
+            if enemy.start != None:
+                # Draws a timer so that the user knows which enemy is running out of time fastest
+                arcade.draw_rectangle_filled(enemy.center_x, enemy.center_y - (enemy.height / 2), width = enemy.width / 2, height = 10, color = arcade.color.RED)
+                arcade.draw_rectangle_filled(enemy.center_x, enemy.center_y - (enemy.height / 2), width = (enemy.width / 2) * (enemy.start/10), height = 10, color = arcade.color.GREEN)
 
 
     def on_update(self, delta_time: float):
         super().on_update(delta_time)
         # checks if the user has typed in the correct word
         self.enemy_list.update()
+
+        for enemy in self.enemy_list:
+            # if an enemy runs out of time then go to score screen
+            if enemy.end <= time():
+                self.stattracker.set_end()
+                game.controller.on_change_view(self, 3, stat_tracker = self.stattracker)
 
         # stat checker stuff will be gone when stattracker is finished
         if not (self.start_type_time == None or self.end_type_time == None):
@@ -70,6 +83,9 @@ class LevelGenerator(arcade.View):
     def on_key_press(self, symbol: int, modifiers: int):
         game.controller.get_key_press(self, symbol)
         if symbol > 96 and symbol < 123:
+            if not self.has_started:
+                self.has_started = True
+                self.stattracker.set_start()
             # basic stat checker will be finished in stat checker file
             if self.end_type_time == None and self.start_type_time == None:
                 self.start_type_time = time()
@@ -91,6 +107,9 @@ class LevelGenerator(arcade.View):
         game.controller.get_key_press(self, symbol, True)
 
     def add_enemy(self, enemy_name, size, word, pos_index):
+        """
+        Adds enemies to the screen
+        """
         self.width = self.window.width
         self.height = self.window.height
         position_list = [[self.width/7,self.height/2.5], [self.width/1.5,self.height/2], [self.width/1.1,self.height/3.5]]
@@ -102,11 +121,17 @@ class LevelGenerator(arcade.View):
         self.enemy_pos[pos_index] = 1
 
     def on_enter(self):
+        """
+        When the user enters a word something happens
+        """
         for enemy in self.enemy_list:
             if len(self.userType) > len(enemy.word) - 1 and self.userType == enemy.word:
                 # stat checker stuff
                 self.end_type_time = time()
                 self.last_time = self.end_type_time - self.start_type_time
+
+                self.stattracker.add_word(enemy.word)
+                self.stattracker.add_user_word(self.userType)
 
                 self.num_words += 1
                 self.userType = ""
