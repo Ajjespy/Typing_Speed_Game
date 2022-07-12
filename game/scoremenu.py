@@ -34,8 +34,15 @@ class ScoreMenu(View):
             self.accuracy = stat_tracker.percentage()
             self.WPM = stat_tracker.wpm()
             self.letters_struggle = stat_tracker.struggle_letters()
+            aps = "'"
+            with open(f"{RESOURCE_PATH}save\\save.txt", 'a') as save_file:
+                save_file.write(f"\n{self.WPM},{self.accuracy},{str(self.letters_struggle).replace(',','').replace(' ','').replace('[','').replace(']','').replace(f'{aps}','')}")
         else:
-            self.WPM = None
+            with open(f"{RESOURCE_PATH}save\\save.txt") as save_file:
+                lines = save_file.readlines()
+                self.WPM, self.accuracy, self.letters_struggle = lines[-1].split(",")
+                self.letters_struggle = list(self.letters_struggle)
+                
 
     def on_draw(self):
         start_render()

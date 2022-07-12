@@ -9,7 +9,8 @@ This program is a game to both test and grow students typing and spelling abilit
 - IDE - Visual Studio Code
 - Language - Python
 - Development Environment - Github with Git
-- Database - {SQL Relational Database, Cloud Database, or within a file}
+- Libraries - Arcade
+- Information Saved in .txt file
 
 # Collaborators
 
@@ -23,15 +24,11 @@ This program is a game to both test and grow students typing and spelling abilit
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Arcade Documentation](https://api.arcade.academy/en/latest/)
+- [Kaggle - Used For Random Words](https://www.kaggle.com/)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
-- Item 3
+- Add stat tracker to game section
+- Incorporate a cloud database instead of local file to save high score
+- Fix scaling issues on different screen sizes
