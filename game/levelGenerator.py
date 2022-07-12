@@ -91,9 +91,9 @@ class LevelGenerator(arcade.View):
         game.controller.get_key_press(self, symbol, True)
 
     def add_enemy(self, enemy_name, size, word, pos_index):
-        x = self.window.width
-        y = self.window.height
-        position_list = [[200,300], [500,500], [800,600]]
+        self.width = self.window.width
+        self.height = self.window.height
+        position_list = [[self.width/7,self.height/2.5], [self.width/1.5,self.height/2], [self.width/1.1,self.height/3.5]]
         enemy = Enemy(enemy_name, size, word, pos_index)
         pos = position_list[pos_index]
         enemy.center_x = pos[0]
