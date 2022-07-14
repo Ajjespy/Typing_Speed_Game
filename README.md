@@ -2,8 +2,6 @@
 
 This program is a game to both test and grow students typing and spelling abilities. As a word comes on the screen the student must type the word before is reaches the end, and future words won't wait for the first to be cleared. After you hit play the trial begins.
 
-[Software Demo Video](http://youtube.link.goes.here)
-
 # Development Environment
 
 - IDE - Visual Studio Code

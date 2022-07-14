@@ -54,7 +54,7 @@ class StatTracker():
 
         wordspm = len(self.list_of_user_words) / time_in_minutes
 
-        return wordspm + 30
+        return wordspm
 
     def struggle_letters(self):
         """

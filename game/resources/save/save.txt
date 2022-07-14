@@ -1,2 +1,7 @@
 WPM,ACC,STR
 0,0,'
+52,97.14,
+56,100.00,
+30,0.00,
+30,0.00,
+366,1.68,jericansgplfduhkboqtvw
