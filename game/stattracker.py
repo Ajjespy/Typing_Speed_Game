@@ -64,18 +64,24 @@ class StatTracker():
         self.struggle_list = []
         self.list_of_characters = []
         self.list_of_user_characters = []
-
+        
+        # loop iterates through list_of_words
+        # appends each character to a new list as its own element
         for i in range(0, len(self.list_of_words)):
             self.list_of_characters = self.list_of_characters + list(self.list_of_words[i])
             self.list_of_user_characters = self.list_of_user_characters + list(self.list_of_user_words[i])
-
+        
+        # loop compares 2 lists finding discrepancies
+        # each missing letter is added to a dictionary as a key and the count of the missing letter is the value 
         for i in range(0, len(self.list_of_characters)):
             if self.list_of_user_characters[i] != self.list_of_characters[i]:
                 if self.list_of_characters[i] in self.missed_letters:
                     self.missed_letters[self.list_of_characters[i]] += 1
                 else:
                     self.missed_letters[self.list_of_characters[i]] = 1
-
+        
+        # searches through dictionary to find letters
+        # missed 2 or more times, then the letter is added to a list named struggle_list
         for key in self.missed_letters:
             item = self.missed_letters[key]
             if item >= 2:
